@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DocGhiNhietDoTuArduino"
         mc:Ignorable="d"
-        Title="Đọc ghi dữ liệu nhiệt độ - Cảm biến và Cơ cấu chấp hành" Height="450" Width="800">
+        Title="Đọc ghi dữ liệu nhiệt độ - Cảm biến và Cơ cấu chấp hành" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -35,11 +35,13 @@
                 <TextBlock Text="22/02/2021"
                            HorizontalAlignment="Center"
                            FontSize="40"
+                           Name="realDate"
                            ></TextBlock>
                 <TextBlock Text="10:30"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
-                           FontSize="120"></TextBlock>
+                           FontSize="100"
+                           Name="realTime"></TextBlock>
             </Grid>
         </Grid>
         <Grid Grid.Column="1">
@@ -65,11 +67,11 @@
                                    FontSize="30"></TextBlock>                        
                     </Grid>
                     <Grid Grid.Column="1">
-                        <ComboBox></ComboBox>
+                        <ComboBox Name="comList"></ComboBox>
                     </Grid>                    
                 </Grid>
                 <Grid Grid.Row="1">
-                    <Button Content="Kết nối" FontSize="30" Width="300" Height="40"></Button>
+                    <Button Name="btnKetNoi" Content="Kết nối" FontSize="30" Width="300" Height="40" Click="Button_Click"></Button>
                 </Grid>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
@@ -83,11 +85,12 @@
                                    FontSize="30"></TextBlock>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <TextBlock Text="Kết nối thành công"
+                        <TextBlock Name="trangThaiKetNoi"
+                                    Text="Chưa kết nối"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    FontSize="25"
-                                   Foreground="Green"></TextBlock>
+                                   Foreground="Red"></TextBlock>
                     </Grid>
                 </Grid>
             </Grid>
