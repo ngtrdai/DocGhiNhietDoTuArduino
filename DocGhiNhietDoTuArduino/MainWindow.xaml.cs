@@ -21,28 +21,28 @@ namespace DocGhiNhietDoTuArduino
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    
+
     public partial class MainWindow : Window
     {
         SerialPort serialPort = new SerialPort();
         DispatcherTimer timerRealTime = new DispatcherTimer();
         DispatcherTimer timerReviceData = new DispatcherTimer();
         DateTime RealDate = new DateTime();
-        
+
         public MainWindow()
         {
             InitializeComponent();
             timerRealTime.Tick += TimerRealTime_Tick;
             timerRealTime.Start();
             timerReviceData.Tick += TimerReviceData_Tick;
-            
+
         }
 
         private void TimerReviceData_Tick(object sender, EventArgs e)
         {
             if (!serialPort.IsOpen)
             {
-                trangThaiKetNoi.Text = "Chưa kết nối";                   
+                trangThaiKetNoi.Text = "Chưa kết nối";
             }
             else if (serialPort.IsOpen)
             {

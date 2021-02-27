@@ -56,9 +56,9 @@
                                    FontSize="50"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center">
-                            
+
                         </TextBlock>
-                    </Grid>       
+                    </Grid>
                 </GroupBox>
             </Grid>
             <!--Kết nối-->
@@ -138,13 +138,13 @@
                     <StackPanel>
                         <TextBlock 
                                HorizontalAlignment="Center"
-                               FontSize="40"
+                               FontSize="50"
                                Name="realDate"
                                ></TextBlock>
                         <TextBlock 
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
-                               FontSize="100"
+                               FontSize="80"
                                Name="realTime"></TextBlock>
                     </StackPanel>
                 </GroupBox>
@@ -159,14 +159,14 @@
                         Style="{DynamicResource MaterialDesignGroupBox}"    
                         Margin="3"    
                         UseLayoutRounding="True"    
-                        SnapsToDevicePixels="True">                   
+                        SnapsToDevicePixels="True">
                         <TextBlock>    
-                            Cập nhật sau                   
-                        </TextBlock>                    
-                    </GroupBox>               
+                            Cập nhật sau
+                        </TextBlock>
+                    </GroupBox>
                 </Border>
             </Grid>
-        </Grid>  
+        </Grid>
         <!--Footer-->
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
