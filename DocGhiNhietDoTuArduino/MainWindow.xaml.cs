@@ -26,12 +26,29 @@ namespace DocGhiNhietDoTuArduino
     {
         SerialPort serialPort = new SerialPort();
         DispatcherTimer timerRealTime = new DispatcherTimer();
+        DispatcherTimer timerReviceData = new DispatcherTimer();
         DateTime RealDate = new DateTime();
         public MainWindow()
         {
             InitializeComponent();
             timerRealTime.Tick += TimerRealTime_Tick;
             timerRealTime.Start();
+            timerReviceData.Tick += TimerReviceData_Tick;
+            timerReviceData.Start();
+        }
+
+        private void TimerReviceData_Tick(object sender, EventArgs e)
+        {
+            if (serialPort.IsOpen == false)
+            {
+                trangThaiKetNoi.Text = "Chưa kết nối";                   
+            }
+            else if (serialPort.IsOpen)
+            {
+                trangThaiKetNoi.Text = "Đã kết nối";
+                string nhietDoNhan = serialPort.ReadLine().ToString();
+                nhietDo.Text = nhietDoNhan;
+            }
         }
 
         private void TimerRealTime_Tick(object sender, EventArgs e)

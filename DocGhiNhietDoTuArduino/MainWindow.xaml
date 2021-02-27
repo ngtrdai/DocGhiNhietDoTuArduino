@@ -18,6 +18,7 @@
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Background="AliceBlue">                
                 <TextBlock 
+                    Name="nhietDo"
                     Text="20.6" 
                     Width="auto" 
                     Height="auto"
