@@ -19,7 +19,7 @@
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="35"></RowDefinition>
         </Grid.RowDefinitions>
         <!--Hàng đầu tiên-->
         <Grid Grid.Row="0">
@@ -44,15 +44,15 @@
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0"
                             Name="nhietDo"
-                            Text="20.6" 
+                            Text="" 
                             Width="auto" 
                             Height="auto"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            FontSize="120"></TextBlock>
+                            FontSize="80"></TextBlock>
                         <TextBlock Grid.Row="1"
                                    Name="doAm"
-                                   Text="Độ ẩm: 75%"
+                                   Text=""
                                    FontSize="50"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center">

@@ -35,20 +35,24 @@ namespace DocGhiNhietDoTuArduino
             timerRealTime.Tick += TimerRealTime_Tick;
             timerRealTime.Start();
             timerReviceData.Tick += TimerReviceData_Tick;
-            timerReviceData.Start();
+            
         }
 
         private void TimerReviceData_Tick(object sender, EventArgs e)
         {
-            if (serialPort.IsOpen == false)
+            if (!serialPort.IsOpen)
             {
                 trangThaiKetNoi.Text = "Chưa kết nối";                   
             }
             else if (serialPort.IsOpen)
             {
                 trangThaiKetNoi.Text = "Đã kết nối";
-                string nhietDoNhan = serialPort.ReadLine().ToString();
-                nhietDo.Text = nhietDoNhan;
+                string duLieuNhan = serialPort.ReadLine().ToString();
+                string[] arrListStr = duLieuNhan.Split(',');
+                string NhietDo = arrListStr[0];
+                string DoAm = arrListStr[1].Substring(0, arrListStr[1].Length - 1);
+                nhietDo.Text = NhietDo + " (°C)";
+                doAm.Text = DoAm + "%";
             }
         }
 
@@ -59,6 +63,7 @@ namespace DocGhiNhietDoTuArduino
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            timerReviceData.Start();
             RealDate = DateTime.Now;
             realDate.Text = RealDate.ToShortDateString();
             string[] danhSachCongCOM = SerialPort.GetPortNames();
@@ -76,29 +81,25 @@ namespace DocGhiNhietDoTuArduino
             {
                 MessageBox.Show("Xin vui lòng chọn cổng!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            if (serialPort.IsOpen)
+            {
+                serialPort.Close();
+                btnKetNoi.Content = "Kết nối";
+                comList.IsEnabled = true;
+            }
             else
             {
-                if (serialPort.IsOpen)
+                try
                 {
-                    serialPort.Close();
-                    btnKetNoi.Content = "Kết nối";
-                    comList.IsEnabled = true;
+                    serialPort.PortName = comList.Text;
+                    serialPort.BaudRate = 9600;
+                    serialPort.Open();
+                    btnKetNoi.Content = "Ngắt kết nối";
+                    comList.IsEnabled = false;
                 }
-                else
+                catch
                 {
-                    try
-                    {
-                        serialPort.PortName = comList.Text;
-                        serialPort.BaudRate = 9600;
-                        serialPort.Open();
-                        trangThaiKetNoi.Text = "Ngắt kết nối";
-                        comList.IsEnabled = false;
-                        serialPort.Write("9");
-                    }
-                    catch
-                    {
-                        MessageBox.Show("Không thể mở cổng!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
+                    MessageBox.Show("Không thể mở cổng!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
