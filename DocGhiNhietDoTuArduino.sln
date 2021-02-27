@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30621.155
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocGhiNhietDoTuArduino", "DocGhiNhietDoTuArduino\DocGhiNhietDoTuArduino.csproj", "{9759FFC1-14F9-45C0-A885-AF0A27606908}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9759FFC1-14F9-45C0-A885-AF0A27606908}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9759FFC1-14F9-45C0-A885-AF0A27606908}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9759FFC1-14F9-45C0-A885-AF0A27606908}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9759FFC1-14F9-45C0-A885-AF0A27606908}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AF951A02-CED6-4F18-890F-5250B04FC07B}
+	EndGlobalSection
+EndGlobal
