@@ -32,7 +32,11 @@
             <Grid Grid.Column="0">
                 <GroupBox
                     Header="Nhiệt độ hiện tại"
-                    Margin="3">
+                    Margin="3"
+                    Style="{DynamicResource MaterialDesignGroupBox}"
+                    UseLayoutRounding="True"    
+                    SnapsToDevicePixels="True"
+                    >
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
@@ -59,7 +63,9 @@
             </Grid>
             <!--Kết nối-->
             <Grid Grid.Column="1">
-                <GroupBox Margin="3" Header="Kết nối">
+                <GroupBox     
+                        UseLayoutRounding="True"    
+                        SnapsToDevicePixels="True" Margin="3" Header="Kết nối" Style="{DynamicResource MaterialDesignGroupBox}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
@@ -80,7 +86,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Button Grid.Column="0" Name="btnKetNoi"  Margin="3" 
                                         Style="{StaticResource MaterialDesignRaisedButton}" 
-                                        Width="200" Height="50">
+                                        Width="200" Height="50" Click="btnKetNoi_Click">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Name="txbKetNoi" FontSize="30" Text="Kết nối"></TextBlock>
                                         <TextBlock>                                        
@@ -125,7 +131,10 @@
             </Grid.ColumnDefinitions>
             <!--Thời gian hiện tại-->
             <Grid Grid.Column="0">
-                <GroupBox Header="Thời gian hiện tại" Margin="3">
+                <GroupBox Style="{DynamicResource MaterialDesignGroupBox}"
+                          Header="Thời gian hiện tại" Margin="3"     
+                            UseLayoutRounding="True"    
+                        SnapsToDevicePixels="True">
                     <StackPanel>
                         <TextBlock 
                                HorizontalAlignment="Center"

@@ -70,9 +70,9 @@ namespace DocGhiNhietDoTuArduino
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnKetNoi_Click(object sender, RoutedEventArgs e)
         {
-            if(comList.Text == "")
+            if (comList.Text == "")
             {
                 MessageBox.Show("Xin vui lòng chọn cổng!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -82,7 +82,7 @@ namespace DocGhiNhietDoTuArduino
                 {
                     serialPort.Close();
                     btnKetNoi.Content = "Kết nối";
-                    comList.IsEnabled = true;   
+                    comList.IsEnabled = true;
                 }
                 else
                 {
@@ -101,8 +101,6 @@ namespace DocGhiNhietDoTuArduino
                     }
                 }
             }
-            
-
         }
     }
 }
