@@ -28,6 +28,7 @@ namespace DocGhiNhietDoTuArduino
         DispatcherTimer timerRealTime = new DispatcherTimer();
         DispatcherTimer timerReviceData = new DispatcherTimer();
         DateTime RealDate = new DateTime();
+        
         public MainWindow()
         {
             InitializeComponent();
