@@ -35,7 +35,13 @@ namespace DocGhiNhietDoTuArduino
     
     public partial class MainWindow : System.Windows.Window, INotifyPropertyChanged
     {
-       
+        #region Vẽ đồ thị
+        public SeriesCollection SeriesCollection { get; set; }
+        public List Labels { get; set; }
+        public Func<double, string> YFormatter { get; set; }
+
+
+        #endregion
 
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -82,7 +88,9 @@ namespace DocGhiNhietDoTuArduino
                 string NhietDo = arrListStr[0];
                 string DoAm = arrListStr[1].Substring(0, arrListStr[1].Length - 1);
                 nhietDo.Text = NhietDo + " (°C)";
-                doAm.Text = DoAm + "%";                
+                doAm.Text = DoAm + "%";
+                SeriesCollection[0].Values.Add(Convert.ToDouble(NhietDo));
+                SeriesCollection[1].Values.Add(Convert.ToDouble(DoAm));
                 dataGrid.Items.Add(new duLieuClass() { cNhietDo = Convert.ToDouble(NhietDo), cDoAm = Convert.ToDouble(DoAm), cThoiGian = DateTime.Now.ToShortTimeString() });
                 
             }
@@ -104,6 +112,25 @@ namespace DocGhiNhietDoTuArduino
             {
                 comList.Items.Add(item);
             }
+
+
+            // Vẽ đồ thị
+            SeriesCollection = new SeriesCollection
+            {
+                new LineSeries
+                {
+                    Title = "Nhiệt Độ",
+                    Values = new ChartValues<double> {}
+                },
+                new LineSeries
+                {
+                    Title = "Độ Ẩm",
+                    Values = new ChartValues<double> {}
+                }
+            };
+
+            YFormatter = value => value.ToString("");
+            DataContext = this;
 
         }
 

@@ -169,8 +169,13 @@
                         Margin="3"    
                         UseLayoutRounding="True"    
                         SnapsToDevicePixels="True">
-                            <lvc:CartesianChart>
-
+                            <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Right" >
+                                <lvc:CartesianChart.AxisY>
+                                    <lvc:Axis Title="Nhiệt độ/Độ ẩm" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
+                                </lvc:CartesianChart.AxisY>
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis Title="Thời gian" Labels="{Binding cThoiGian}"></lvc:Axis>
+                                </lvc:CartesianChart.AxisX>
                             </lvc:CartesianChart>
                         </GroupBox>
                     </Border>
