@@ -1,5 +1,6 @@
 ﻿<Window x:Class="DocGhiNhietDoTuArduino.MainWindow"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -13,36 +14,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DocGhiNhietDoTuArduino"
         mc:Ignorable="d"
-        Title="Đọc ghi dữ liệu nhiệt độ - Cảm biến và Cơ cấu chấp hành" Height="600" Width="800" Loaded="Window_Loaded">
+        Title="Đọc ghi dữ liệu nhiệt độ - Cảm biến và Cơ cấu chấp hành" Height="650" Width="1300" Loaded="Window_Loaded">
+    <Window.ContextMenu>
+        <ContextMenu Placement="Center"/>
+    </Window.ContextMenu>
     <Grid>
-        <!--Chia hàng-->
-        <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="35"></RowDefinition>
-        </Grid.RowDefinitions>
-        <!--Hàng đầu tiên-->
-        <Grid Grid.Row="0">
-            <!--Chia cột của hàng đầu-->
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <!--Nhiệt độ và độ ẩm hiện tại-->
-            <Grid Grid.Column="0">
-                <GroupBox
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".7*"></ColumnDefinition>
+            <ColumnDefinition Width=".3*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0"> 
+            <!--Chia hàng-->
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="35"></RowDefinition>
+            </Grid.RowDefinitions>
+            <!--Hàng đầu tiên-->
+            <Grid Grid.Row="0">
+                <!--Chia cột của hàng đầu-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <!--Nhiệt độ và độ ẩm hiện tại-->
+                <Grid Grid.Column="0">
+                    <GroupBox
                     Header="Nhiệt độ hiện tại"
                     Margin="3"
                     Style="{DynamicResource MaterialDesignGroupBox}"
                     UseLayoutRounding="True"    
                     SnapsToDevicePixels="True"
                     >
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition Height=".35*"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0"
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition Height=".35*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0"
                             Name="nhietDo"
                             Text="" 
                             Width="auto" 
@@ -50,142 +59,157 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             FontSize="80"></TextBlock>
-                        <TextBlock Grid.Row="1"
+                            <TextBlock Grid.Row="1"
                                    Name="doAm"
                                    Text=""
                                    FontSize="50"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center">
 
-                        </TextBlock>
-                    </Grid>
-                </GroupBox>
-            </Grid>
-            <!--Kết nối-->
-            <Grid Grid.Column="1">
-                <GroupBox     
+                            </TextBlock>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+                <!--Kết nối-->
+                <Grid Grid.Column="1">
+                    <GroupBox     
                         UseLayoutRounding="True"    
                         SnapsToDevicePixels="True" Margin="3" Header="Kết nối" Style="{DynamicResource MaterialDesignGroupBox}">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <Grid Grid.Row="0">
-                            <StackPanel Orientation="Vertical">
-                                <TextBlock FontSize="20" Text="Cổng:"></TextBlock>
-                                <ComboBox Name="comList"></ComboBox>
-                            </StackPanel>
-                        </Grid>
-                        <Grid Grid.Row="1">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <Button Grid.Column="0" Name="btnKetNoi"  Margin="3" 
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock FontSize="20" Text="Cổng:"></TextBlock>
+                                    <ComboBox Name="comList"></ComboBox>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Grid.Column="0" Name="btnKetNoi"  Margin="3" 
                                         Style="{StaticResource MaterialDesignRaisedButton}" 
                                         Width="200" Height="50" Click="btnKetNoi_Click">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Name="txbKetNoi" FontSize="30" Text="Kết nối"></TextBlock>
-                                        <TextBlock>                                        
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Name="txbKetNoi" FontSize="30" Text="Kết nối"></TextBlock>
+                                            <TextBlock>                                        
                                             <materialDesign:PackIcon FontSize="30" Name="icoKetNoi" Kind="LinkVariant" />
-                                        </TextBlock>
-                                    </StackPanel>
-                                </Button>
-                                <Button HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" FontSize="30" Content="Reset" Name="btnReset" Margin="3" Width="200" Height="50" Background="Red">
-                                </Button>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" FontSize="30" Content="Reset" Name="btnReset" Margin="3" Width="200" Height="50" Background="Red">
+                                    </Button>
+                                </Grid>
                             </Grid>
-                        </Grid>
-                        <Grid Grid.Row="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150"></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0">
-                                <TextBlock Text="Trạng thái:"
+                            <Grid Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <TextBlock Text="Trạng thái:"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    FontSize="30"></TextBlock>
-                            </Grid>
-                            <Grid Grid.Column="1">
-                                <TextBlock Name="trangThaiKetNoi"
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <TextBlock Name="trangThaiKetNoi"
                                     Text="Chưa kết nối"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    FontSize="25"
                                    Foreground="Red"></TextBlock>
+                                </Grid>
                             </Grid>
                         </Grid>
-                    </Grid>
-                </GroupBox>
+                    </GroupBox>
+                </Grid>
             </Grid>
-        </Grid>
-        <!--Hàng thứ 2-->
-        <Grid Grid.Row="1">
-            <!--Chia cột hàng thứ 2-->
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <!--Thời gian hiện tại-->
-            <Grid Grid.Column="0">
-                <GroupBox Style="{DynamicResource MaterialDesignGroupBox}"
+            <!--Hàng thứ 2-->
+            <Grid Grid.Row="1">
+                <!--Chia cột hàng thứ 2-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <!--Thời gian hiện tại-->
+                <Grid Grid.Column="0">
+                    <GroupBox Style="{DynamicResource MaterialDesignGroupBox}"
                           Header="Thời gian hiện tại" Margin="3"     
                             UseLayoutRounding="True"    
                         SnapsToDevicePixels="True">
-                    <StackPanel>
-                        <TextBlock 
+                        <StackPanel>
+                            <TextBlock 
                                HorizontalAlignment="Center"
-                               FontSize="50"
+                               FontSize="40"
                                Name="realDate"
                                ></TextBlock>
-                        <TextBlock 
+                            <TextBlock 
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
-                               FontSize="80"
+                               FontSize="100"
                                Name="realTime"></TextBlock>
-                    </StackPanel>
-                </GroupBox>
-            </Grid>
-            <!--Đồ thị-->
-            <Grid Grid.Column="1">
-                <Border
+                        </StackPanel>
+                    </GroupBox>
+                </Grid>
+                <!--Đồ thị-->
+                <Grid Grid.Column="1">
+                    <Border
                     
                     Background="{DynamicResource MaterialDesignBackground}">
-                    <GroupBox    
+                        <GroupBox    
                         Header="Đồ thị theo thời gian thực"   
                         Style="{DynamicResource MaterialDesignGroupBox}"    
                         Margin="3"    
                         UseLayoutRounding="True"    
                         SnapsToDevicePixels="True">
-                        <TextBlock>    
-                            Cập nhật sau
-                        </TextBlock>
-                    </GroupBox>
-                </Border>
+                            <lvc:CartesianChart>
+
+                            </lvc:CartesianChart>
+                        </GroupBox>
+                    </Border>
+                </Grid>
+            </Grid>
+            <!--Footer-->
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <Button Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        Hướng dẫn sử dụng
+                    </Button>
+                    <Button Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        Thông tin
+                    </Button>
+                </StackPanel>
+                <Grid Grid.Column="1">
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Margin="3">
+                        Phiên bản phần mềm v1.0 @ngtrdai
+                    </TextBlock>
+                </Grid>
             </Grid>
         </Grid>
-        <!--Footer-->
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Orientation="Horizontal">
-                <Button Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    Hướng dẫn sử dụng
-                </Button>
-                <Button Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    Thông tin
-                </Button>
-            </StackPanel>
-            <Grid Grid.Column="1">
-                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Margin="3">
-                        Phiên bản phần mềm v1.0 @ngtrdai
-                </TextBlock>
-            </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height=".3*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <DataGrid Grid.Row="0" x:Name="dataGrid">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Thời gian" Binding="{Binding cThoiGian}" />
+                    <DataGridTextColumn Header="Nhiệt độ" Binding="{Binding cNhietDo}" />
+                    <DataGridTextColumn Header="Độ Ẩm" Binding="{Binding cDoAm}" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Grid.Row="1" Name="btnXuatFile" Content="Xuất file" Width="300" Height="80" FontSize="40" Click="btnXuatFile_Click"></Button>
         </Grid>
     </Grid>
 </Window>
