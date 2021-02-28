@@ -60,8 +60,9 @@ namespace DocGhiNhietDoTuArduino
             InitializeComponent();
             timerRealTime.Tick += TimerRealTime_Tick;
             timerRealTime.Start();
+            timerReviceData.Interval = new TimeSpan(0, 0, 5);
             timerReviceData.Tick += TimerReviceData_Tick;
-
+            
         }
 
 
