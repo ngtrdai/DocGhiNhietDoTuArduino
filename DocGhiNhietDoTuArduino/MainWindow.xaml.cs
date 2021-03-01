@@ -35,6 +35,10 @@ namespace DocGhiNhietDoTuArduino
 
     public partial class MainWindow : Window
     {
+        #region Khởi tạo
+        //List<int> baudRate = new List<int>; 
+        #endregion
+
         #region Vẽ đồ thị
         public SeriesCollection SeriesCollection { get; set; }
         public List Labels { get; set; }
@@ -81,7 +85,7 @@ namespace DocGhiNhietDoTuArduino
                 doAm.Text = DoAm;
                 SeriesCollection[0].Values.Add(Convert.ToDouble(NhietDo));
                 SeriesCollection[1].Values.Add(Convert.ToDouble(DoAm));
-                dataGrid.Items.Add(new Data() { cNhietDo = Convert.ToDouble(NhietDo), cDoAm = Convert.ToDouble(DoAm), cThoiGian = DateTime.Now.ToShortTimeString() });
+                dataGrid.Items.Add(new Data() { cNgay = DateTime.Now.ToShortDateString(), cNhietDo = Convert.ToDouble(NhietDo), cDoAm = Convert.ToDouble(DoAm), cThoiGian = DateTime.Now.ToShortTimeString() });
             }
         }
         #endregion
@@ -165,13 +169,28 @@ namespace DocGhiNhietDoTuArduino
                 Process.Start(fileName);
             }
         }
+
+        private void lstMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lstMenu.SelectedIndex == 0)
+            {
+                Window wCaiDat = new CaiDat();
+                wCaiDat.ShowDialog();
+            }
+            else if (lstMenu.SelectedIndex == 1)
+            {
+                string thongTin = "PHẦN MỀM ĐỌC GHI DỮ LIỆU TỪ ARDUINO\r\nSử dụng cảm biến DHT11\r\nMôn học: Cảm biến và cơ cấu chấp hành\r\nThành viên: Nguyễn Trọng Đại, Trần Triệu Vĩ\r\n----------------" +
+                    "\r\nTác giả: Nguyễn Trọng Đại - @ngtrdai\r\nPhiên bản: v1.1";
+                MessageBox.Show(thongTin,"Thông tin phần mềm",MessageBoxButton.OK,MessageBoxImage.Information);
+            }
+            
+        }
     }
     public class Data
     {
+        public string cNgay { get; set; }
         public double cNhietDo { get; set; }
-
         public double cDoAm { get; set; }
-
         public string cThoiGian { get; set; }
     }
 
