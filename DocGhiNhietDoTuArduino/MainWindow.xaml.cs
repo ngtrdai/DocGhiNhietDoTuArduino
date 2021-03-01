@@ -32,53 +32,43 @@ namespace DocGhiNhietDoTuArduino
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    
-    public partial class MainWindow : System.Windows.Window, INotifyPropertyChanged
+
+    public partial class MainWindow : Window
     {
         #region Vẽ đồ thị
         public SeriesCollection SeriesCollection { get; set; }
         public List Labels { get; set; }
         public Func<double, string> YFormatter { get; set; }
 
-
+        #endregion
+        #region Thiết lập timer
+        DispatcherTimer timerDongHo = new DispatcherTimer();
+        DispatcherTimer timerNhanDuLieu = new DispatcherTimer();
+        DateTime DongHo = new DateTime();
+        #endregion
+        #region Khai báo
+        SerialPort serialPort = new SerialPort();
         #endregion
 
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string newName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(newName));
-            }
-        }
-
-        SerialPort serialPort = new SerialPort();
-        DispatcherTimer timerRealTime = new DispatcherTimer();
-        DispatcherTimer timerReviceData = new DispatcherTimer();
-        DateTime RealDate = new DateTime();
-
-
-
-        List<duLieuClass> datas = new List<duLieuClass>();
         public MainWindow()
         {
             InitializeComponent();
-            timerRealTime.Tick += TimerRealTime_Tick;
-            timerRealTime.Start();
-            timerReviceData.Interval = new TimeSpan(0, 0, 5);
-            timerReviceData.Tick += TimerReviceData_Tick;
-            
+            timerNhanDuLieu.Tick += TimerNhanDuLieu_Tick;
+            timerDongHo.Tick += TimerDongHo_Tick;
+            timerNhanDuLieu.Interval = new TimeSpan(0, 0, 5);
+            timerNhanDuLieu.Start();
+        }
+        #region Event Timer
+        private void TimerDongHo_Tick(object sender, EventArgs e)
+        {
+            dongHo.Text = DateTime.Now.ToShortTimeString();
         }
 
-
-
-        private void TimerReviceData_Tick(object sender, EventArgs e)
+        private void TimerNhanDuLieu_Tick(object sender, EventArgs e)
         {
-               
             if (!serialPort.IsOpen)
             {
-                trangThaiKetNoi.Text = "Chưa kết nối";                   
+                trangThaiKetNoi.Text = "Chưa kết nối";
             }
             else if (serialPort.IsOpen)
             {
@@ -87,33 +77,23 @@ namespace DocGhiNhietDoTuArduino
                 string[] arrListStr = duLieuNhan.Split(',');
                 string NhietDo = arrListStr[0];
                 string DoAm = arrListStr[1].Substring(0, arrListStr[1].Length - 1);
-                nhietDo.Text = NhietDo + " (°C)";
-                doAm.Text = DoAm + "%";
+                nhietDo.Text = NhietDo;
+                doAm.Text = DoAm;
                 SeriesCollection[0].Values.Add(Convert.ToDouble(NhietDo));
                 SeriesCollection[1].Values.Add(Convert.ToDouble(DoAm));
-                dataGrid.Items.Add(new duLieuClass() { cNhietDo = Convert.ToDouble(NhietDo), cDoAm = Convert.ToDouble(DoAm), cThoiGian = DateTime.Now.ToShortTimeString() });
-                
+                dataGrid.Items.Add(new Data() { cNhietDo = Convert.ToDouble(NhietDo), cDoAm = Convert.ToDouble(DoAm), cThoiGian = DateTime.Now.ToShortTimeString() });
             }
         }
-        private void TimerRealTime_Tick(object sender, EventArgs e)
-        {
-            realTime.Text = DateTime.Now.ToShortTimeString();
-        }
+        #endregion
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
-            timerReviceData.Start();
-            RealDate = DateTime.Now;
-            realDate.Text = RealDate.ToShortDateString();
+            timerDongHo.Start();
             string[] danhSachCongCOM = SerialPort.GetPortNames();
-
             foreach (string item in danhSachCongCOM)
             {
                 comList.Items.Add(item);
             }
-
-
             // Vẽ đồ thị
             SeriesCollection = new SeriesCollection
             {
@@ -131,7 +111,6 @@ namespace DocGhiNhietDoTuArduino
 
             YFormatter = value => value.ToString("");
             DataContext = this;
-
         }
 
         private void btnKetNoi_Click(object sender, RoutedEventArgs e)
@@ -140,33 +119,33 @@ namespace DocGhiNhietDoTuArduino
             {
                 MessageBox.Show("Xin vui lòng chọn cổng!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            if (serialPort.IsOpen)
-            {
-                serialPort.Close();
-                btnKetNoi.Content = "Kết nối";
-                comList.IsEnabled = true;
-            }
             else
             {
-                try
+                if (serialPort.IsOpen)
                 {
-
-                    serialPort.PortName = comList.Text;
-                    serialPort.BaudRate = 9600;
-                    serialPort.Open();
-                    btnKetNoi.Content = "Ngắt kết nối";
-                    comList.IsEnabled = false;
-
-
+                    serialPort.Close();
+                    btnKetNoi.Content = "Kết nối";
+                    comList.IsEnabled = true;
                 }
-                catch
+                else
                 {
-                    MessageBox.Show("Không thể mở cổng!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    try
+                    {
+                        serialPort.PortName = comList.Text;
+                        serialPort.BaudRate = 9600;
+                        serialPort.Open();
+                        btnKetNoi.Content = "Ngắt kết nối";
+                        comList.IsEnabled = false;
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Không thể mở cổng!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
             }
         }
 
-        private void btnXuatFile_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.dataGrid.SelectAllCells();
             this.dataGrid.ClipboardCopyMode = DataGridClipboardCopyMode.IncludeHeader;
@@ -187,7 +166,7 @@ namespace DocGhiNhietDoTuArduino
             }
         }
     }
-    public class duLieuClass
+    public class Data
     {
         public double cNhietDo { get; set; }
 
@@ -195,5 +174,5 @@ namespace DocGhiNhietDoTuArduino
 
         public string cThoiGian { get; set; }
     }
-    
+
 }
