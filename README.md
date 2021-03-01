@@ -23,5 +23,7 @@
 * Vẽ đồ thị theo thời gian thực.
 * Hiện thị thời gian theo thời gian thực.
 * Cập nhật sau ...
-![Giao diện](https://i.imgur.com/IhRCzPT.png)
+### Giao diện chính:
+![Giao diện](https://i.imgur.com/mSILrpe.png)
+
 
