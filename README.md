@@ -3,12 +3,11 @@
 * **Môn học:** Cảm biến và cơ cấu chấp hành.
 * **Giảng viên:** Dương Thế Phong.
 * **Thành viên:**
-* 
 ```
-Nguyễn Trọng Đại - 19146146 - [@ngtrdai](https://github.com/ngtrdai).
+Nguyễn Trọng Đại - 19146146 - @ngtrdai.
 ```
 ```
-Trần Triệu Vĩ - 19146301 - [@trantrieuvi](https://github.com/trantrieuvi).
+Trần Triệu Vĩ - 19146301 - @trantrieuvi.
 ```
 
 
