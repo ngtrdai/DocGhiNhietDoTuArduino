@@ -185,6 +185,24 @@ namespace DocGhiNhietDoTuArduino
             }
             
         }
+
+        private void btnLuuDoThi_Click(object sender, RoutedEventArgs e)
+        {
+            var bitmap = new RenderTargetBitmap((int)DoThi.ActualWidth, (int)DoThi.ActualHeight, 96, 96, PixelFormats.Pbgra32);
+            bitmap.Render(DoThi);
+            var frame = BitmapFrame.Create(bitmap);
+            var encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(frame);
+            string fileName = "";
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PNG file (*.png)|*.png";
+            saveFileDialog.ShowDialog();
+            fileName = saveFileDialog.FileName;
+            if (fileName != "")
+            {
+                using (var stream = File.Create(fileName)) encoder.Save(stream);
+            }            
+        }
     }
     public class Data
     {
