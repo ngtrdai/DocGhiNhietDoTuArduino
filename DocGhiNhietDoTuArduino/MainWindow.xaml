@@ -260,6 +260,8 @@
                                 <DataGridTextColumn Header="Thời gian"  Binding="{Binding cThoiGian}" />
                                 <DataGridTextColumn Header="Nhiệt độ"  Binding="{Binding cNhietDo}" />
                                 <DataGridTextColumn Header="Độ Ẩm"  Binding="{Binding cDoAm}" />
+                                <DataGridTextColumn Header="Không Khí"  Binding="{Binding cKhongKhi}" />
+                                <DataGridTextColumn Header="Độ Ẩm Đất"  Binding="{Binding cDoAmDat}" />
                             </DataGrid.Columns>
                         </DataGrid>
                     </materialDesign:Card>

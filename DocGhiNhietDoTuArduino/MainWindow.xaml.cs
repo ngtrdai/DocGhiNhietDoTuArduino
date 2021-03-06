@@ -80,12 +80,26 @@ namespace DocGhiNhietDoTuArduino
                 string duLieuNhan = serialPort.ReadLine().ToString();
                 string[] arrListStr = duLieuNhan.Split(',');
                 string NhietDo = arrListStr[0];
-                string DoAm = arrListStr[1].Substring(0, arrListStr[1].Length - 1);
+                string DoAm = arrListStr[1];
+                string KhongKhi = arrListStr[2];
+                string DoAmDat = arrListStr[3].Substring(0, arrListStr[3].Length - 1);
                 nhietDo.Text = NhietDo;
                 doAm.Text = DoAm;
+                khongKhi.Text = KhongKhi;
+                doAmDat.Text = DoAmDat;
                 SeriesCollection[0].Values.Add(Convert.ToDouble(NhietDo));
                 SeriesCollection[1].Values.Add(Convert.ToDouble(DoAm));
-                dataGrid.Items.Add(new Data() { cNgay = DateTime.Now.ToShortDateString(), cNhietDo = Convert.ToDouble(NhietDo), cDoAm = Convert.ToDouble(DoAm), cThoiGian = DateTime.Now.ToShortTimeString() });
+                SeriesCollection[2].Values.Add(Convert.ToDouble(KhongKhi));
+                SeriesCollection[3].Values.Add(Convert.ToDouble(DoAmDat));
+                dataGrid.Items.Add(new Data() 
+                { 
+                    cNgay = DateTime.Now.ToShortDateString(), 
+                    cNhietDo = Convert.ToDouble(NhietDo), 
+                    cDoAm = Convert.ToDouble(DoAm), 
+                    cThoiGian = DateTime.Now.ToShortTimeString(),
+                    cKhongKhi = Convert.ToDouble(KhongKhi),
+                    cDoAmDat = Convert.ToDouble(DoAmDat)
+                });
             }
         }
         #endregion
@@ -110,6 +124,16 @@ namespace DocGhiNhietDoTuArduino
                 {
                     Title = "Độ Ẩm",
                     Values = new ChartValues<double> {}
+                },
+                new LineSeries
+                {
+                    Title = "Không Khí",
+                    Values = new ChartValues<double>{}
+                },
+                new LineSeries
+                {
+                    Title = "Độ Ẩm Đất",
+                    Values = new ChartValues<double>{}
                 }
             };
 
@@ -210,8 +234,8 @@ namespace DocGhiNhietDoTuArduino
         public double cNhietDo { get; set; }
         public double cDoAm { get; set; }
         public string cThoiGian { get; set; }
-        public string cKhongKhi { get; set; }
-        public string cDoAmDat { get; set; }
+        public double cKhongKhi { get; set; }
+        public double cDoAmDat { get; set; }
     }
 
 }
