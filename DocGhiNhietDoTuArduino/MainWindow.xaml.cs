@@ -210,6 +210,8 @@ namespace DocGhiNhietDoTuArduino
         public double cNhietDo { get; set; }
         public double cDoAm { get; set; }
         public string cThoiGian { get; set; }
+        public string cKhongKhi { get; set; }
+        public string cDoAmDat { get; set; }
     }
 
 }

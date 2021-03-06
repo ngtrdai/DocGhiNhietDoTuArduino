@@ -14,7 +14,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DocGhiNhietDoTuArduino"
         mc:Ignorable="d"
-        Title="Đọc ghi dữ liệu nhiệt độ - Cảm biến và Cơ cấu chấp hành" Height="650" Width="1400" Loaded="Window_Loaded">
+        Title="Đọc ghi dữ liệu nhiệt độ - Cảm biến và Cơ cấu chấp hành" 
+        Height="850" Width="1400" 
+        Loaded="Window_Loaded"
+        WindowStartupLocation="CenterScreen">
     <Window.ContextMenu>
         <ContextMenu Placement="Center"/>
     </Window.ContextMenu>
@@ -22,7 +25,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height=".1*"></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height=".2*"></RowDefinition>
+            <RowDefinition Height=".15*"></RowDefinition>
         </Grid.RowDefinitions>
         <materialDesign:ColorZone  Grid.Row="0" 
             Mode="Inverted"  
@@ -50,8 +53,8 @@
                     Orientation="Horizontal">
                     <TextBlock        
                         VerticalAlignment="Center"       
-                        Margin="16 0 0 0">      
-                         Bảng thông số
+                        Margin="16 0 0 0" FontSize="20" FontFamily="Calibri">      
+                         THÔNG SỐ MÔI TRƯỜNG
                     </TextBlock>
                 </StackPanel>
             </DockPanel>
@@ -63,6 +66,7 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
@@ -97,7 +101,14 @@
                                     <TextBlock Grid.Column="0" Text="NHIỆT ĐỘ" Margin="0 5 0 0" FontSize="38"></TextBlock>
                                     <TextBlock x:Name="nhietDo" Grid.Column="1" Text="" FontSize="90" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3"></TextBlock>
                                 </Grid>
-                                <materialDesign:PackIcon Kind="WhiteBalanceSunny" Grid.Row="1" Height="73" Margin="287,0.2,0,0" Width="115" RenderTransformOrigin="0.853,0.561" Foreground="Yellow"/>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" VerticalAlignment="Center" FontSize="35">(Đơn vị: °C)</TextBlock>
+                                    <materialDesign:PackIcon Kind="WhiteBalanceSunny" Grid.Column="1" Height="61"  Width="113" RenderTransformOrigin="0.853,0.561" Foreground="Yellow" Margin="97.6,0,-0.2,0"/>
+                                </Grid>
                             </Grid>
 
                         </materialDesign:Card>
@@ -128,11 +139,100 @@
                                     <TextBlock Grid.Column="0" Text="ĐỘ ẨM" Margin="0 5 0 0" FontSize="38"></TextBlock>
                                     <TextBlock Name="doAm" Grid.Column="1" Text="" FontSize="90" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3"></TextBlock>
                                 </Grid>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" VerticalAlignment="Center" FontSize="35">(Đơn vị: %)</TextBlock>
+                                    <materialDesign:PackIcon Kind="WeatherRainy" Grid.Column="1" Height="61"  Width="113" RenderTransformOrigin="0.853,0.561" Foreground="White" Margin="97.6,0,-0.2,0"/>
+                                </Grid>
                             </Grid>
                         </materialDesign:Card>
                     </Grid>
                 </Grid>
-                <materialDesign:Card Grid.Row="1"   
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <materialDesign:Card  
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"  
+                            Width="auto"
+                            Margin="20"
+                            Padding="10"  
+                            UniformCornerRadius="6">
+                            <materialDesign:Card.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF00FF0C" Offset="0"/>
+                                    <GradientStop Color="#FF00571D" Offset="1"/>
+                                </LinearGradientBrush>
+                            </materialDesign:Card.Background>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition Height=".7*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="KHÔNG KHÍ" Margin="0 5 0 0" FontSize="38"></TextBlock>
+                                    <TextBlock x:Name="khongKhi" Grid.Column="1" Text="" FontSize="90" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3"></TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" VerticalAlignment="Center" FontSize="35">(Đơn vị: PPM)</TextBlock>
+                                    <materialDesign:PackIcon Kind="Run" Grid.Column="1" Height="61"  Width="113" RenderTransformOrigin="0.853,0.561" Foreground="White" Margin="97.6,0,-0.2,0"/>
+                                </Grid>
+                            </Grid>
+
+                        </materialDesign:Card>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <materialDesign:Card  
+                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"  
+                            Width="auto"
+                            Margin="0 20 20 20"
+                            Padding="10"  
+                            UniformCornerRadius="6">
+                            <materialDesign:Card.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="SaddleBrown" Offset="0"/>
+                                    <GradientStop Color="#FF033546" Offset="0.997"/>
+                                </LinearGradientBrush>
+                            </materialDesign:Card.Background>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition Height=".7*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width=".9*"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="ĐỘ ẨM ĐẤT" Margin="0 5 0 0" FontSize="38"></TextBlock>
+                                    <TextBlock Name="doAmDat" Grid.Column="1" Text="" FontSize="90" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3"></TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" VerticalAlignment="Center" FontSize="35">(Đơn vị: %)</TextBlock>
+                                    <materialDesign:PackIcon Kind="WaterPercent" Grid.Column="1" Height="61"  Width="113" RenderTransformOrigin="0.853,0.561" Foreground="LightBlue" Margin="97.6,0,-0.2,0"/>
+                                </Grid>
+                            </Grid>
+                        </materialDesign:Card>
+                    </Grid>
+                </Grid>
+                <materialDesign:Card Grid.Row="2"   
                     materialDesign:ShadowAssist.ShadowDepth="Depth1"    
                     Padding="2" Margin="10 0 10 0" Background="Black">
                     <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Right" Name="DoThi" Foreground="White" >
