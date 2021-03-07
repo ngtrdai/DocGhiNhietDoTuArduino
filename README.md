@@ -1,4 +1,4 @@
-# ĐỌC DỮ LIỆU TỪ ARDUINO VÀ GHI NHIỆT ĐỘ VÀO EXCEL
+# ĐỌC GHI THÔNG SỐ MÔI TRƯỜNG
 ## Thông tin môn học:
 * **Môn học:** Cảm biến và cơ cấu chấp hành.
 * **Giảng viên:** Dương Thế Phong.
