@@ -14,11 +14,10 @@
 3. [Giao tiếp Arduino với các cảm biến](#giao-tiếp-giữa-arduino-và-cảm-biến)
 4. [Giới thiệu về phần mềm](#giới-thiệu-về-phần-mềm)
    1. [Chức năng chính](#những-chức-năng-chính)
-   2. [Nhận dữ liệu từ Arduino và xử lý dữ liệu bằng C#](#nhận-dữ-liệu-từ-arduino-và-xử-lý-dữ-liệu-bằng-c)
-   3. [Giải pháp ghi dữ liệu vào Excel](#giải-pháp-ghi-dữ-liệu-vào-excel)
-   4. [Giải pháp đồ thị](#giải-pháp-về-lưu-đồ-thị)
-5. [Lời kết](#-lời-kết)
-6. [Task](#-task)
+   3. [Nhận dữ liệu từ Arduino và xử lý dữ liệu bằng C#](#nhận-dữ-liệu-từ-arduino-và-xử-lý-dữ-liệu-bằng-c)
+   4. [Giải pháp ghi dữ liệu vào Excel](#giải-pháp-ghi-dữ-liệu-vào-excel)
+   5. [Giải pháp đồ thị](#giải-pháp-về-lưu-đồ-thị)
+5. [Lời kết](#lời-kết)
 # Thông tin môn học:
   
 * **Môn học:** Cảm biến và cơ cấu chấp hành.
@@ -108,7 +107,6 @@ Trần Triệu Vĩ - 19146301 - @trantrieuvi.
 
 # Giới thiệu về phần mềm
 ---
-
 ## Những chức năng chính
 - [X] Ghi nhận dữ liệu nhiệt độ, độ ẩm, chất lượng không khí, và độ ẩm đất.
 - [X] Kết nối qua cổng Serial Port, có thể sử dụng với Module Bluetooth.
@@ -117,6 +115,8 @@ Trần Triệu Vĩ - 19146301 - @trantrieuvi.
 - [X] Hiển thị DataGrid dữ liệu ghi nhận theo thời gian thực.
 - [X] Lưu dữ liệu với file .csv để đọc được với Excel.
 - [ ] Cập nhật sau . . .
+### Screenshot
+![Ảnh chụp màn hình](https://github.com/ngtrdai/DocGhiNhietDoTuArduino/blob/master/Screenshot.png)
 ## Nhận dữ liệu từ Arduino và xử lý dữ liệu bằng C#
 ### Sự kiện khi chọn cổng COM và nhấn nút kết nối
 ```
