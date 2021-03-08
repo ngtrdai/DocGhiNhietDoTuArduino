@@ -180,7 +180,7 @@ Trần Triệu Vĩ - 19146301 - @trantrieuvi.
 
 ## Giải pháp ghi dữ liệu vào Excel
 ```
-  private void Button_Click(object sender, RoutedEventArgs e){
+  private void btnSaveCSV_Click(object sender, RoutedEventArgs e){
       dataGrid.SelectAllCells();
       dataGrid.ClipboardCopyMode = DataGridClipboardCopyMode.IncludeHeader;
       ApplicationCommands.Copy.Execute(null, this.dataGrid);
