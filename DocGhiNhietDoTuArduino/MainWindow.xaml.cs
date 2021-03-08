@@ -38,12 +38,10 @@ namespace DocGhiNhietDoTuArduino
         #region Khởi tạo
         //List<int> baudRate = new List<int>; 
         #endregion
-
-        #region Vẽ đồ thị
+        #region Khởi tạo đồ thị
         public SeriesCollection SeriesCollection { get; set; }
         public List Labels { get; set; }
         public Func<double, string> YFormatter { get; set; }
-
         #endregion
         #region Thiết lập timer
         DispatcherTimer timerDongHo = new DispatcherTimer();
@@ -53,15 +51,6 @@ namespace DocGhiNhietDoTuArduino
         #region Khai báo
         SerialPort serialPort = new SerialPort();
         #endregion
-
-        public MainWindow()
-        {
-            InitializeComponent();
-            timerNhanDuLieu.Tick += TimerNhanDuLieu_Tick;
-            timerDongHo.Tick += TimerDongHo_Tick;
-            timerNhanDuLieu.Interval = new TimeSpan(0, 0, 5);
-            timerNhanDuLieu.Start();
-        }
         #region Event Timer
         private void TimerDongHo_Tick(object sender, EventArgs e)
         {
@@ -91,11 +80,11 @@ namespace DocGhiNhietDoTuArduino
                 SeriesCollection[1].Values.Add(Convert.ToDouble(DoAm));
                 SeriesCollection[2].Values.Add(Convert.ToDouble(KhongKhi));
                 SeriesCollection[3].Values.Add(Convert.ToDouble(DoAmDat));
-                dataGrid.Items.Add(new Data() 
-                { 
-                    cNgay = DateTime.Now.ToShortDateString(), 
-                    cNhietDo = Convert.ToDouble(NhietDo), 
-                    cDoAm = Convert.ToDouble(DoAm), 
+                dataGrid.Items.Add(new Data()
+                {
+                    cNgay = DateTime.Now.ToShortDateString(),
+                    cNhietDo = Convert.ToDouble(NhietDo),
+                    cDoAm = Convert.ToDouble(DoAm),
                     cThoiGian = DateTime.Now.ToShortTimeString(),
                     cKhongKhi = Convert.ToDouble(KhongKhi),
                     cDoAmDat = Convert.ToDouble(DoAmDat)
@@ -103,7 +92,7 @@ namespace DocGhiNhietDoTuArduino
             }
         }
         #endregion
-
+        #region Event load
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             timerDongHo.Start();
@@ -140,7 +129,16 @@ namespace DocGhiNhietDoTuArduino
             YFormatter = value => value.ToString("");
             DataContext = this;
         }
-
+        #endregion
+        public MainWindow()
+        {
+            InitializeComponent();
+            timerNhanDuLieu.Tick += TimerNhanDuLieu_Tick;
+            timerDongHo.Tick += TimerDongHo_Tick;
+            timerNhanDuLieu.Interval = new TimeSpan(0, 0, 5);
+            timerNhanDuLieu.Start();
+        }
+        #region Kết nối
         private void btnKetNoi_Click(object sender, RoutedEventArgs e)
         {
             if (comList.Text == "")
@@ -172,7 +170,8 @@ namespace DocGhiNhietDoTuArduino
                 }
             }
         }
-
+        #endregion
+        #region Lưu Excel
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.dataGrid.SelectAllCells();
@@ -193,7 +192,7 @@ namespace DocGhiNhietDoTuArduino
                 Process.Start(fileName);
             }
         }
-
+        #endregion
         private void lstMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lstMenu.SelectedIndex == 0)
@@ -203,8 +202,16 @@ namespace DocGhiNhietDoTuArduino
             }
             else if (lstMenu.SelectedIndex == 1)
             {
-                string thongTin = "PHẦN MỀM ĐỌC GHI DỮ LIỆU TỪ ARDUINO\r\nSử dụng cảm biến DHT11\r\nMôn học: Cảm biến và cơ cấu chấp hành\r\nThành viên: Nguyễn Trọng Đại, Trần Triệu Vĩ\r\n----------------" +
-                    "\r\nTác giả: Nguyễn Trọng Đại - @ngtrdai\r\nPhiên bản: v1.1";
+                string thongTin = 
+                    "PHẦN MỀM ĐỌC GHI DỮ LIỆU MÔI TRƯỜNG\r\n" +
+                    "Sử dụng cảm biến DHT22, MQ135, SMS-V2\r\n" +
+                    "Môn học: Cảm biến và cơ cấu chấp hành\r\n" +
+                    "Thành viên: Nguyễn Trọng Đại, Trần Triệu Vĩ" +
+                    "\r\n----------------" +
+                    "\r\nTác giả: Nguyễn Trọng Đại - @ngtrdai\r\n" +
+                    "Phiên bản phần mềm: v1.1\r\n" +
+                    "Github: ngtrdai/DocGhiNhietDoTuArduino"
+                    ;
                 MessageBox.Show(thongTin,"Thông tin phần mềm",MessageBoxButton.OK,MessageBoxImage.Information);
             }
             

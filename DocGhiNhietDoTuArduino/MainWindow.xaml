@@ -14,8 +14,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DocGhiNhietDoTuArduino"
         mc:Ignorable="d"
-        Title="Đọc ghi dữ liệu nhiệt độ - Cảm biến và Cơ cấu chấp hành" 
-        Height="850" Width="1400" 
+        Title="Đọc ghi dữ liệu môi trường - Cảm biến và Cơ cấu chấp hành" 
+        Height="800" Width="1400" 
         Loaded="Window_Loaded"
         WindowStartupLocation="CenterScreen">
     <Window.ContextMenu>
