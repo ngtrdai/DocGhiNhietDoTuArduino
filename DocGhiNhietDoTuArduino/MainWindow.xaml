@@ -18,15 +18,22 @@
         Height="800" Width="1400" 
         Loaded="Window_Loaded"
         WindowStartupLocation="CenterScreen">
+    <!-- PHẦN MỀM ĐỌC GHI DỮ LIỆU MÔI TRƯỜNG - CẢM BIẾN VÀ CƠ CẤU CHẤP HÀNH -->
+    <!-- Author: ngtrdai - Ver: v1.1 - 2021 -->
     <Window.ContextMenu>
         <ContextMenu Placement="Center"/>
     </Window.ContextMenu>
     <Grid>
+        <!-- Chia hàng chính -->
         <Grid.RowDefinitions>
+            <!-- Row Header -->
             <RowDefinition Height=".1*"></RowDefinition>
+            <!-- Row Body -->
             <RowDefinition></RowDefinition>
+            <!-- Row Footer -->
             <RowDefinition Height=".15*"></RowDefinition>
         </Grid.RowDefinitions>
+        <!--Header -->
         <materialDesign:ColorZone  Grid.Row="0" 
             Mode="Inverted"  
             Padding="16">
@@ -37,44 +44,46 @@
                 </LinearGradientBrush>
             </materialDesign:ColorZone.Background>
             <DockPanel>
-                <materialDesign:PopupBox      
-                    DockPanel.Dock="Right"      
-                    PlacementMode="BottomAndAlignRightEdges">
-                    <ListBox Name="lstMenu" SelectionChanged="lstMenu_SelectionChanged">
-                        <ListBoxItem>
-                            Cài đặt
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            Thông tin
-                        </ListBoxItem>
-                    </ListBox>
-                </materialDesign:PopupBox>
+                <!-- Title -->
                 <StackPanel     
                     Orientation="Horizontal">
                     <TextBlock        
                         VerticalAlignment="Center"       
-                        Margin="16 0 0 0" FontSize="20" FontFamily="Calibri">      
-                         THÔNG SỐ MÔI TRƯỜNG
-                    </TextBlock>
+                        Margin="5 0 0 0" 
+						FontSize="20" 
+						FontFamily="Calibri">THÔNG SỐ MÔI TRƯỜNG</TextBlock>
                 </StackPanel>
             </DockPanel>
         </materialDesign:ColorZone>
+        <!-- Body -->
         <Grid Grid.Row="1">
+            <!-- Chia cột body -->
             <Grid.ColumnDefinitions>
+                <!-- Cột hiển thị -->
                 <ColumnDefinition></ColumnDefinition>
+                <!-- Cột dữ liệu -->
                 <ColumnDefinition Width=".45*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
+            <!-- Hiển thị -->
             <Grid Grid.Column="0">
+                <!-- Chia hàng cho cột hiển thị -->
                 <Grid.RowDefinitions>
+                    <!-- Hàng: Nhiệt độ & độ ẩm -->
                     <RowDefinition></RowDefinition>
+                    <!-- Hàng: Không khí & cài dặt nhiệt độ -->
                     <RowDefinition></RowDefinition>
+                    <!-- Hàng đồ thị -->
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
+                <!-- Hàng: Nhiệt độ & độ ẩm -->
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
+                        <!-- Cột nhiệt độ -->
                         <ColumnDefinition></ColumnDefinition>
+                        <!-- Cột độ ẩm -->
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
+                    <!-- Cột nhiệt độ -->
                     <Grid Grid.Column="0">
                         <materialDesign:Card  
                             Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"  
@@ -83,9 +92,12 @@
                             Padding="10"  
                             UniformCornerRadius="6">
                             <materialDesign:Card.Background>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="Red" Offset="0"/>
-                                    <GradientStop Color="#FF861E1E" Offset="1"/>
+                                <LinearGradientBrush EndPoint="0.5,1" 
+													 StartPoint="0.5,0">
+                                    <GradientStop Color="Red" 
+												  Offset="0"/>
+                                    <GradientStop Color="#FF861E1E" 
+												  Offset="1"/>
                                 </LinearGradientBrush>
                             </materialDesign:Card.Background>
                             <Grid>
@@ -98,32 +110,52 @@
                                         <ColumnDefinition Width=".8*"></ColumnDefinition>
                                         <ColumnDefinition></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="NHIỆT ĐỘ" Margin="0 5 0 0" FontSize="38"></TextBlock>
-                                    <TextBlock x:Name="nhietDo" Grid.Column="1" Text="" FontSize="90" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3"></TextBlock>
+                                    <TextBlock Grid.Column="0" 
+											   Text="NHIỆT ĐỘ" 
+											   Margin="0 5 0 0"
+                                               FontWeight="Bold"
+											   FontSize="35"></TextBlock>
+                                    <TextBlock x:Name="nhietDo" 
+											   Grid.Column="1" 
+											   Text="" 
+											   FontSize="90" 
+											   HorizontalAlignment="Center" 
+											   VerticalAlignment="Center" 
+											   Margin="3"></TextBlock>
                                 </Grid>
                                 <Grid Grid.Row="1">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition></ColumnDefinition>
                                         <ColumnDefinition></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" VerticalAlignment="Center" FontSize="35">(Đơn vị: °C)</TextBlock>
-                                    <materialDesign:PackIcon Kind="WhiteBalanceSunny" Grid.Column="1" Height="61"  Width="113" RenderTransformOrigin="0.853,0.561" Foreground="Yellow" Margin="97.6,0,-0.2,0"/>
+                                    <TextBlock Grid.Column="0" 
+											   VerticalAlignment="Center" 
+											   FontSize="35">(Đơn vị: °C)</TextBlock>
+                                    <materialDesign:PackIcon Kind="WhiteBalanceSunny" 
+															 Grid.Column="1" 
+															 Height="61"  
+															 Width="113" 
+															 RenderTransformOrigin="0.853,0.561" 
+															 Foreground="Yellow" 
+															 Margin="97.6,0,-0.2,0"/>
                                 </Grid>
                             </Grid>
-
                         </materialDesign:Card>
                     </Grid>
                     <Grid Grid.Column="1">
                         <materialDesign:Card  
                             Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"  
                             Width="auto"
-                            Margin="0 20 20 20"
+                            Margin="0 20 10 20"
                             Padding="10"  
                             UniformCornerRadius="6">
                             <materialDesign:Card.Background>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="#FF003AFF" Offset="0"/>
-                                    <GradientStop Color="#FF1C0E7A" Offset="1"/>
+                                <LinearGradientBrush EndPoint="0.5,1" 
+													 StartPoint="0.5,0">
+                                    <GradientStop Color="#FF003AFF" 
+												  Offset="0"/>
+                                    <GradientStop Color="#FF1C0E7A" 
+												  Offset="1"/>
                                 </LinearGradientBrush>
                             </materialDesign:Card.Background>
                             <Grid>
@@ -136,16 +168,34 @@
                                         <ColumnDefinition Width=".8*"></ColumnDefinition>
                                         <ColumnDefinition></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="ĐỘ ẨM" Margin="0 5 0 0" FontSize="38"></TextBlock>
-                                    <TextBlock Name="doAm" Grid.Column="1" Text="" FontSize="90" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3"></TextBlock>
+                                    <TextBlock Grid.Column="0" 
+											   Text="ĐỘ ẨM" 
+                                               FontWeight="Bold"
+											   Margin="0 5 0 0" 
+											   FontSize="35"></TextBlock>
+                                    <TextBlock Name="doAm" 
+											   Grid.Column="1" 
+											   Text="" 
+											   FontSize="90" 
+											   HorizontalAlignment="Center" 
+											   VerticalAlignment="Center" 
+											   Margin="3"></TextBlock>
                                 </Grid>
                                 <Grid Grid.Row="1">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition></ColumnDefinition>
                                         <ColumnDefinition></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" VerticalAlignment="Center" FontSize="35">(Đơn vị: %)</TextBlock>
-                                    <materialDesign:PackIcon Kind="WeatherRainy" Grid.Column="1" Height="61"  Width="113" RenderTransformOrigin="0.853,0.561" Foreground="White" Margin="97.6,0,-0.2,0"/>
+                                    <TextBlock Grid.Column="0" 
+											   VerticalAlignment="Center" 
+											   FontSize="35">(Đơn vị: %)</TextBlock>
+                                    <materialDesign:PackIcon Kind="WeatherRainy" 
+															 Grid.Column="1" 
+															 Height="61"  
+															 Width="113" 
+															 RenderTransformOrigin="0.853,0.561" 
+															 Foreground="White" 
+															 Margin="97.6,0,-0.2,0"/>
                                 </Grid>
                             </Grid>
                         </materialDesign:Card>
@@ -160,13 +210,16 @@
                         <materialDesign:Card  
                             Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"  
                             Width="auto"
-                            Margin="20"
+                            Margin="20 10 20 20"
                             Padding="10"  
                             UniformCornerRadius="6">
                             <materialDesign:Card.Background>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="#FF00FF0C" Offset="0"/>
-                                    <GradientStop Color="#FF00571D" Offset="1"/>
+                                <LinearGradientBrush EndPoint="0.5,1" 
+													 StartPoint="0.5,0">
+                                    <GradientStop Color="#FF00FF0C" 
+												  Offset="0"/>
+                                    <GradientStop Color="#FF00571D" 
+												  Offset="1"/>
                                 </LinearGradientBrush>
                             </materialDesign:Card.Background>
                             <Grid>
@@ -179,16 +232,33 @@
                                         <ColumnDefinition Width="1*"></ColumnDefinition>
                                         <ColumnDefinition></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="KHÔNG KHÍ" Margin="0 5 0 0" FontSize="38"></TextBlock>
-                                    <TextBlock x:Name="khongKhi" Grid.Column="1" Text="" FontSize="90" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3"></TextBlock>
+                                    <TextBlock Grid.Column="0" 
+											   Text="KHÔNG KHÍ" 
+                                               FontWeight="Bold"
+											   Margin="0 5 0 0" 
+											   FontSize="35"></TextBlock>
+                                    <TextBlock x:Name="khongKhi" 
+											   Grid.Column="1" Text="" 
+											   FontSize="90" 
+											   HorizontalAlignment="Center" 
+											   VerticalAlignment="Center" 
+											   Margin="3"></TextBlock>
                                 </Grid>
                                 <Grid Grid.Row="1">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition></ColumnDefinition>
                                         <ColumnDefinition></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" VerticalAlignment="Center" FontSize="35">(Đơn vị: PPM)</TextBlock>
-                                    <materialDesign:PackIcon Kind="Run" Grid.Column="1" Height="61"  Width="113" RenderTransformOrigin="0.853,0.561" Foreground="White" Margin="97.6,0,-0.2,0"/>
+                                    <TextBlock Grid.Column="0" 
+											   VerticalAlignment="Center" 
+											   FontSize="34">(Đơn vị: PPM)</TextBlock>
+                                    <materialDesign:PackIcon Kind="Run" 
+															 Grid.Column="1" 
+															 Height="61"  
+															 Width="113" 
+															 RenderTransformOrigin="0.853,0.561" 
+															 Foreground="White" 
+															 Margin="97.6,0,-0.2,0"/>
                                 </Grid>
                             </Grid>
 
@@ -198,13 +268,16 @@
                         <materialDesign:Card  
                             Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"  
                             Width="auto"
-                            Margin="0 20 20 20"
+                            Margin="0 10 10 20"
                             Padding="10"  
                             UniformCornerRadius="6">
                             <materialDesign:Card.Background>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="SaddleBrown" Offset="0"/>
-                                    <GradientStop Color="#FF033546" Offset="0.997"/>
+                                <LinearGradientBrush EndPoint="0.5,1" 
+													 StartPoint="0.5,0">
+                                    <GradientStop Color="#FF593114" 
+												  Offset="0"/>
+                                    <GradientStop Color="#FFC81414" 
+												  Offset="0.997"/>
                                 </LinearGradientBrush>
                             </materialDesign:Card.Background>
                             <Grid>
@@ -214,30 +287,40 @@
                                 </Grid.RowDefinitions>
                                 <Grid Grid.Row="0">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width=".9*"></ColumnDefinition>
+                                        <ColumnDefinition Width=".5*"></ColumnDefinition>
                                         <ColumnDefinition></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="ĐỘ ẨM ĐẤT" Margin="0 5 0 0" FontSize="38"></TextBlock>
-                                    <TextBlock Name="doAmDat" Grid.Column="1" Text="" FontSize="90" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3"></TextBlock>
+                                    <Grid Grid.Column="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width=".2*"></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+
+                                    </Grid>
                                 </Grid>
-                                <Grid Grid.Row="1">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition></ColumnDefinition>
-                                        <ColumnDefinition></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" VerticalAlignment="Center" FontSize="35">(Đơn vị: %)</TextBlock>
-                                    <materialDesign:PackIcon Kind="WaterPercent" Grid.Column="1" Height="61"  Width="113" RenderTransformOrigin="0.853,0.561" Foreground="LightBlue" Margin="97.6,0,-0.2,0"/>
-                                </Grid>
+                                <TextBlock Grid.Row="1" 
+										   Name="thongBaoTrangThai"
+                                           FontSize="30"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center">
+                                </TextBlock>
                             </Grid>
                         </materialDesign:Card>
                     </Grid>
                 </Grid>
-                <materialDesign:Card Grid.Row="2"   
-                    materialDesign:ShadowAssist.ShadowDepth="Depth1"    
-                    Padding="2" Margin="10 0 10 0" Background="Black">
-                    <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Right" Name="DoThi" Foreground="White" >
+                <materialDesign:Card Grid.Row="2"
+									 materialDesign:ShadowAssist.ShadowDepth="Depth1"
+									 Padding="2" 
+									 Margin="10 0 10 0" 
+									 Background="Black">
+                    <lvc:CartesianChart Series="{Binding SeriesCollection}" 
+										LegendLocation="Right" 
+										Name="DoThi" 
+										Foreground="White" >
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Foreground="White" Title="Nhiệt độ/Độ ẩm" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
+                            <lvc:Axis Foreground="White" 
+									  Title="Nhiệt độ/Độ ẩm" 
+									  LabelFormatter="{Binding YFormatter}"></lvc:Axis>
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
                 </materialDesign:Card>
@@ -247,33 +330,444 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition Height=".2*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0" Margin="10" Background="Black">
-                    <materialDesign:Card
-    
-                        materialDesign:ShadowAssist.ShadowDepth="Depth1"
-    
-                        Padding="2"
-                        Margin="10" Background="Black">
-                        <DataGrid Name="dataGrid"  Foreground="#DD000000" Background="White">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Ngày"  Binding="{Binding cNgay}" />
-                                <DataGridTextColumn Header="Thời gian"  Binding="{Binding cThoiGian}" />
-                                <DataGridTextColumn Header="Nhiệt độ"  Binding="{Binding cNhietDo}" />
-                                <DataGridTextColumn Header="Độ Ẩm"  Binding="{Binding cDoAm}" />
-                                <DataGridTextColumn Header="Không Khí"  Binding="{Binding cKhongKhi}" />
-                                <DataGridTextColumn Header="Độ Ẩm Đất"  Binding="{Binding cDoAmDat}" />
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </materialDesign:Card>
+                <Grid Grid.Row="0" 
+					  Margin="0 9 10 0" 
+					  Background="Black">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="197*"/>
+                        <RowDefinition Height="306*"/>
+                    </Grid.RowDefinitions>
+                    <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
+										 Padding="2"
+										 Margin="0,10,0,0" 
+										 Background="Black" Grid.RowSpan="2">
+                        <TabControl BorderBrush="{x:Null}" Background="Black">
+                            <TabControl.Resources>
+                                <Style TargetType="TabItem">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="TabItem">
+                                                <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="4,4,0,0" Margin="2,0">
+                                                    <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsSelected" Value="True">
+                                                        <Setter TargetName="Border" Property="Background" Value="LightSkyBlue" />
+                                                    </Trigger>
+                                                    <Trigger Property="IsSelected" Value="False">
+                                                        <Setter TargetName="Border" Property="Background" Value="GhostWhite" />
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </TabControl.Resources>
+                            <TabItem Header="Dữ liệu" BorderBrush="{x:Null}" Background="White">
+                                    <DataGrid Name="dataGrid"  
+								      Foreground="#DD000000" 
+								      Background="White">
+                                        <DataGrid.BorderBrush>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="Black" Offset="0"/>
+                                                <GradientStop Color="White" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </DataGrid.BorderBrush>
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Ngày"  
+													    Binding="{Binding cNgay}" />
+                                            <DataGridTextColumn Header="Thời gian"  
+													    Binding="{Binding cThoiGian}" />
+                                            <DataGridTextColumn Header="Nhiệt độ"  
+													    Binding="{Binding cNhietDo}" />
+                                            <DataGridTextColumn Header="Độ Ẩm"  
+													    Binding="{Binding cDoAm}" />
+                                            <DataGridTextColumn Header="Không Khí"  
+													    Binding="{Binding cKhongKhi}" />
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </TabItem>
+                            <TabItem Header="Cài đặt" Background="White" BorderBrush="{x:Null}">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="2*"></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <materialDesign:Card  Grid.Row="0"
+                                                          Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                                                          Padding="3"  
+                                                          UniformCornerRadius="6">
+                                        <materialDesign:Card.Background>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="Black" Offset="0"/>
+                                                <GradientStop Color="Red" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </materialDesign:Card.Background>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <DockPanel Grid.Row="0" Margin="10 20 10 0">
+                                                <TextBlock Text="Baudrate:" VerticalAlignment="Center" FontSize="30" FontWeight="Bold"></TextBlock>
+                                                <ComboBox Name="comBaudrate" Height="40" FontSize="30"></ComboBox>
+                                            </DockPanel>
+                                            <DockPanel Grid.Row="1" Margin="10 0 10 20">
+                                                <TextBlock Text="Tốc độ lấy mẫu:" VerticalAlignment="Center" FontSize="30" FontWeight="Bold"></TextBlock>
+                                                <ComboBox Name="comTocDo" Height="40" FontSize="30"></ComboBox>
+                                            </DockPanel>
+                                        </Grid>
+                                    </materialDesign:Card>
+                                    <materialDesign:Card Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" Grid.Row="1"  
+                                                         Width="auto" Margin="0 10 0 3"
+                                                         Padding="10"
+                                                         UniformCornerRadius="6">
+                                        <materialDesign:Card.Background>
+                                            <LinearGradientBrush EndPoint="0.5,1" 
+													 StartPoint="0.5,0">
+                                                <GradientStop Color="#FF593114" 
+												  Offset="0"/>
+                                                <GradientStop Color="#FFC81414" 
+												  Offset="0.997"/>
+                                            </LinearGradientBrush>
+                                        </materialDesign:Card.Background>
+                                        <Grid>
+                                            <TextBlock FontSize="30" FontWeight="Bold">
+                                            Cài đặt t°:
+                                            </TextBlock>
+                                            <ComboBox Margin="0 30 0 0" FontSize="30" 
+												  Name="cbbNhietDo" 
+												  Grid.Column="1" 
+												  Height="40">
+                                            </ComboBox>
+                                        </Grid>                                        
+                                    </materialDesign:Card>
+                                    <Grid Grid.Row="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Button Grid.Column="0"
+                                                Margin="0 0 0 0"
+                                                Height="65"
+                                                Content="Cài đặt"
+                                                FontSize="30"
+                                                FontWeight="DemiBold" BorderBrush="{x:Null}">
+                                            <Button.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="Red" Offset="0"/>
+                                                    <GradientStop Color="#FF400A0A" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Button.Background>
+                                        </Button>
+                                        <Button Grid.Column="1" 
+                                                Height="65"
+                                                Margin="10 0 0 0"
+                                                Content="Khôi phục"
+                                                FontSize="30"
+                                                FontWeight="DemiBold" BorderBrush="{x:Null}">
+                                            <Button.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" 
+													 StartPoint="0.5,0">
+                                                    <GradientStop Color="#FF0D07FD" 
+												  Offset="0"/>
+                                                    <GradientStop Color="#FF0A092B" 
+												  Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Button.Background>
+                                        </Button>
+                                    </Grid>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Hướng dẫn" BorderBrush="{x:Null}" >
+                                <materialDesign:Card
+                                    Width="auto">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition
+                                                Height="140" />
+                                            <RowDefinition        
+                                                Height="*" />
+                                            <RowDefinition        
+                                                Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Image Margin="10"     
+                                            Source="Resources/img/LogoPNG.png"      
+                                            Stretch="Uniform" />
+                                        <Button      
+                                            Grid.Row="0"      
+                                            Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"      
+                                            HorizontalAlignment="Right"      
+                                            VerticalAlignment="Bottom"      
+                                            Margin="0 0 16 -20" Background="White" BorderBrush="White">
+                                            <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center"       
+                                                Kind="Play" Height="40" Width="40" />
+                                        </Button>
+                                        <Grid Grid.Row="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="0.2*"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Row="0" VerticalAlignment="Center"      
+                                                FontWeight="Bold" HorizontalAlignment="Center">      
+                                                HƯỚNG DẪN SỬ DỤNG PHẦN MỀM
+                                            </TextBlock>
+                                            <TextBlock Grid.Row="1"  Margin="10 0"      
+                                                TextWrapping="Wrap"        
+                                                VerticalAlignment="Center">      
+                                                Bước 1:
+                                                <LineBreak></LineBreak>
+                                                Bước 2:
+                                                <LineBreak></LineBreak>
+                                                Bước 3:
+                                                <LineBreak></LineBreak>
+                                                Bước 4:
+                                                <LineBreak></LineBreak>
+                                            </TextBlock>
+                                        </Grid>
+                                        <StackPanel      
+                                            HorizontalAlignment="Right"      
+                                            Grid.Row="2"      
+                                            Orientation="Horizontal"      
+                                            Margin="8">
+                                            <TextBlock>
+                                                Phiên bản: v1.2 - 2021
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </Grid>
+                                </materialDesign:Card>
+                            </TabItem>
+                            <TabItem Header="Thông tin" BorderBrush="{x:Null}" >
+                                <TabItem.Background>
+                                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                                        <GradientStop Color="White" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </TabItem.Background>
+                                <materialDesign:Card
+                                    Width="auto">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition
+                                                Height="140" />
+                                            <RowDefinition        
+                                                Height="*" />
+                                            <RowDefinition        
+                                                Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Image Margin="10"     
+                                            Source="Resources/img/LogoPNG.png"      
+                                            Stretch="Uniform" />
+                                        <Button      
+                                            Grid.Row="0"      
+                                            Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"      
+                                            HorizontalAlignment="Right"      
+                                            VerticalAlignment="Bottom"      
+                                            Margin="0 0 16 -20" Background="White" BorderBrush="White">
+                                            <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center"       
+                                                Kind="Github" Height="40" Width="40" />
+                                        </Button>
+                                        <Grid Grid.Row="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="0.2*"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Row="0" VerticalAlignment="Center"      
+                                                FontWeight="Bold" HorizontalAlignment="Center">      
+                                                PHẦN MỀM ĐỌC GHI NHIỆT ĐỘ MÔI TRƯỜNG
+                                            </TextBlock>
+                                            <TextBlock Grid.Row="1"  Margin="10 0"      
+                                                TextWrapping="Wrap"        
+                                                VerticalAlignment="Center">      
+                                                Phần mềm là sản phẩm trong đề tài môn học "Cảm biến và Cơ cấu chấp hành". Phần mềm được tùy chỉnh riêng cho phần cứng đã được thiết lập sẵn. Xem chi tiết hơn ở Github.
+                                            </TextBlock>
+                                            <Grid Grid.Row="2">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <materialDesign:Card Margin="10" Grid.Column="0"
+                                                    Background="#03a9f4"  
+                                                    Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"                                                      
+                                                    Width="auto">
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition        
+                                                                Height="Auto" />
+                                                            <RowDefinition        
+                                                                Height="Auto" />
+                                                            <RowDefinition        
+                                                                Height="Auto" />
+                                                        </Grid.RowDefinitions>
+                                                        <TextBlock      
+                                                            Grid.Row="0"      
+                                                            Margin="16 16 16 4" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center">    
+                                                            Nguyễn Trọng Đại
+                                                        </TextBlock>
 
+                                                        <TextBlock      
+                                                            Grid.Row="1"      
+                                                            Margin="16 0 16 8"      
+                                                            VerticalAlignment="Center"      
+                                                            HorizontalAlignment="Center"  FontWeight="Bold"
+                                                            FontSize="25"
+                                                            Style="{StaticResource MaterialDesignBody2TextBlock}">    
+                                                            19146146
+                                                        </TextBlock>
+                                                        <StackPanel      
+                                                            Grid.Row="2"      
+                                                            Orientation="Horizontal"  
+                                                            HorizontalAlignment="Center">
+                                                            <Button        
+                                                                HorizontalAlignment="Right"        
+                                                                Style="{StaticResource MaterialDesignToolForegroundButton}"        
+                                                                Width="auto" Height="auto"      
+                                                                Padding="2 0 2 0"        
+                                                                materialDesign:RippleAssist.IsCentered="True">
+                                                                <materialDesign:PackIcon   Width="30"    Height="30"         
+                                                                    Kind="Phone" />
+                                                            </Button>
+                                                            <Button        
+                                                                HorizontalAlignment="Right"        
+                                                                Style="{StaticResource MaterialDesignToolForegroundButton}"        
+                                                                Width="auto" Height="auto"        
+                                                                Padding="2 0 2 0"        
+                                                                materialDesign:RippleAssist.IsCentered="True">
+                                                                <materialDesign:PackIcon    Width="30"    Height="30"        
+                                                                    Kind="Email" />
+                                                            </Button>
+                                                            <Button        
+                                                                HorizontalAlignment="Right"        
+                                                                Style="{StaticResource MaterialDesignToolForegroundButton}"        
+                                                                Width="auto" Height="auto"       
+                                                                Padding="2 0 2 0"        
+                                                                materialDesign:RippleAssist.IsCentered="True">
+                                                                <materialDesign:PackIcon  Width="30"    Height="30"          
+                                                                    Kind="Github" />
+                                                            </Button>
+                                                            <Button        
+                                                                HorizontalAlignment="Right"        
+                                                                Style="{StaticResource MaterialDesignToolForegroundButton}"        
+                                                                Width="auto" Height="auto" 
+                                                                Padding="2 0 2 0"        
+                                                                materialDesign:RippleAssist.IsCentered="True">
+                                                                <materialDesign:PackIcon    Width="30"    Height="30"        
+                                                                    Kind="Facebook" />
+                                                            </Button>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </materialDesign:Card>
+                                                <materialDesign:Card Margin="10" Grid.Column="1"
+                                                    Background="#03a9f4"  
+                                                    Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"                                                      
+                                                    Width="auto">
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition        
+                                                                Height="Auto" />
+                                                            <RowDefinition        
+                                                                Height="Auto" />
+                                                            <RowDefinition        
+                                                                Height="Auto" />
+                                                        </Grid.RowDefinitions>
+                                                        <TextBlock      
+                                                            Grid.Row="0"      
+                                                            Margin="16 16 16 4" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center">    
+                                                            Trần Triệu Vĩ
+                                                        </TextBlock>
+
+                                                        <TextBlock      
+                                                            Grid.Row="1"      
+                                                            Margin="16 0 16 8"      
+                                                            VerticalAlignment="Center"      
+                                                            HorizontalAlignment="Center"  FontWeight="Bold"
+                                                            FontSize="25"
+                                                            Style="{StaticResource MaterialDesignBody2TextBlock}">    
+                                                            19146301
+                                                        </TextBlock>
+                                                        <StackPanel      
+                                                            Grid.Row="2"      
+                                                            Orientation="Horizontal"  
+                                                            HorizontalAlignment="Center">
+                                                            <Button        
+                                                                HorizontalAlignment="Right"        
+                                                                Style="{StaticResource MaterialDesignToolForegroundButton}"        
+                                                                Width="auto" Height="auto"      
+                                                                Padding="2 0 2 0"        
+                                                                materialDesign:RippleAssist.IsCentered="True">
+                                                                <materialDesign:PackIcon   Width="30"    Height="30"         
+                                                                    Kind="Phone" />
+                                                            </Button>
+                                                            <Button        
+                                                                HorizontalAlignment="Right"        
+                                                                Style="{StaticResource MaterialDesignToolForegroundButton}"        
+                                                                Width="auto" Height="auto"        
+                                                                Padding="2 0 2 0"        
+                                                                materialDesign:RippleAssist.IsCentered="True">
+                                                                <materialDesign:PackIcon    Width="30"    Height="30"        
+                                                                    Kind="Email" />
+                                                            </Button>
+                                                            <Button        
+                                                                HorizontalAlignment="Right"        
+                                                                Style="{StaticResource MaterialDesignToolForegroundButton}"        
+                                                                Width="auto" Height="auto"       
+                                                                Padding="2 0 2 0"        
+                                                                materialDesign:RippleAssist.IsCentered="True">
+                                                                <materialDesign:PackIcon  Width="30"    Height="30"          
+                                                                    Kind="Github" />
+                                                            </Button>
+                                                            <Button        
+                                                                HorizontalAlignment="Right"        
+                                                                Style="{StaticResource MaterialDesignToolForegroundButton}"        
+                                                                Width="auto" Height="auto" 
+                                                                Padding="2 0 2 0"        
+                                                                materialDesign:RippleAssist.IsCentered="True">
+                                                                <materialDesign:PackIcon    Width="30"    Height="30"        
+                                                                    Kind="Facebook" />
+                                                            </Button>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </materialDesign:Card>
+                                            </Grid>
+                                        </Grid>
+                                        <StackPanel      
+                                            HorizontalAlignment="Right"      
+                                            Grid.Row="2"      
+                                            Orientation="Horizontal"      
+                                            Margin="8">
+                                            <TextBlock>
+                                                Phiên bản: v1.2 - 2021
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </Grid>
+                                </materialDesign:Card>
+                            </TabItem>
+                        </TabControl>
+
+                    </materialDesign:Card>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <Grid>
+                    <Grid Margin="5 0 5 0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Button Name="btnLuuDoThi" Click="btnLuuDoThi_Click" Grid.Column="0" Margin="10 0 5 0" Height="50" Content="Lưu đồ thị" FontSize="20" BorderBrush="Black">
+                        <Button Name="btnLuuDoThi" 
+								Click="btnLuuDoThi_Click" 
+								Grid.Column="0" 
+								Margin="0 0 5 0" 
+								Height="50" 
+								Content="Lưu đồ thị" 
+								FontSize="30" 
+								BorderBrush="Black"
+								ToolTip="Lưu đồ thị thành file .png">
                             <Button.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                     <GradientStop Color="Red" Offset="0"/>
@@ -281,11 +775,22 @@
                                 </LinearGradientBrush>
                             </Button.Background>
                         </Button>
-                        <Button Grid.Column="1" Margin="5 0 10 0" Height="50" Content="Xuất dữ liệu" FontSize="20" BorderBrush="Black" Click="Button_Click">
+                        <Button Grid.Column="1" 
+								Margin="5 0 10 0" 
+								Height="50" 
+								Content="Xuất dữ liệu" 
+								FontSize="30" 
+								BorderBrush="Black" 
+								Name="btnSaveCSV" 
+								Click="btnSaveCSV_Click"
+								ToolTip="Lưu dữ liệu ra file .csv">
                             <Button.Background>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="#FF0D07FD" Offset="0"/>
-                                    <GradientStop Color="#FF0A092B" Offset="1"/>
+                                <LinearGradientBrush EndPoint="0.5,1" 
+													 StartPoint="0.5,0">
+                                    <GradientStop Color="#FF0D07FD" 
+												  Offset="0"/>
+                                    <GradientStop Color="#FF0A092B" 
+												  Offset="1"/>
                                 </LinearGradientBrush>
                             </Button.Background>
                         </Button>
@@ -298,17 +803,37 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition Width=".70*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <materialDesign:Card Grid.Column="0"   
-                    materialDesign:ShadowAssist.ShadowDepth="Depth1"    
-                    Padding="2" Margin="10 10 10 10" Background="Black">
+            <materialDesign:Card Grid.Column="0"
+								 materialDesign:ShadowAssist.ShadowDepth="Depth1"
+								 Padding="2" 
+								 Margin="10 10 10 10" 
+								 Background="Black">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="CỔNG KẾT NỐI:  " VerticalAlignment="Center" FontSize="30" Foreground="#DDFFFFFF"></TextBlock>
-                    <ComboBox FontSize="30" Name="comList"  Width="265" Height="40" Background="White"></ComboBox>
-                    <Button x:Name="btnKetNoi" Content="KẾT NỐI" Width="200" Height="55" FontSize="25" Margin="25 0 30 0" BorderBrush="Black" Click="btnKetNoi_Click">
+                    <TextBlock Text="CỔNG KẾT NỐI:  " 
+							   VerticalAlignment="Center" 
+							   FontSize="30" 
+							   Foreground="#DDFFFFFF"></TextBlock>
+                    <ComboBox FontSize="30" 
+							  Name="comList"  
+							  Width="265" 
+							  Height="40" 
+							  Background="White"></ComboBox>
+                    <Button x:Name="btnKetNoi" 
+							Content="KẾT NỐI" 
+							Width="281" 
+							Height="55" 
+							FontSize="25" 
+							Margin="25,7,30,6.8" 
+							BorderBrush="Black" 
+							Click="btnKetNoi_Click"
+							ToolTip="Kết nối với cổng COM đã chọn.">
                         <Button.Background>
-                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="Red" Offset="0"/>
-                                <GradientStop Color="#FF4B0000" Offset="1"/>
+                            <LinearGradientBrush EndPoint="0.5,1" 
+												 StartPoint="0.5,0">
+                                <GradientStop Color="Red" 
+											  Offset="0"/>
+                                <GradientStop Color="#FF4B0000" 
+											  Offset="1"/>
                             </LinearGradientBrush>
                         </Button.Background>
                     </Button>
@@ -316,17 +841,23 @@
             </materialDesign:Card>
             <materialDesign:Card Grid.Column="1"   
                     materialDesign:ShadowAssist.ShadowDepth="Depth1"    
-                    Padding="2" Margin="10 10 10 10" Background="Black">
+                    Padding="2" 
+					Margin="10 10 10 10" 
+					Background="Black">
                 <StackPanel Orientation="Horizontal" Background="Black">
                     <materialDesign:Card  
                         Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"  
-                        Width="200"  
+                        Width="200" 
+                        Height="55"
                         Margin="8"  
                         UniformCornerRadius="6">
                         <materialDesign:Card.Background>
-                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="Red" Offset="0"/>
-                                <GradientStop Color="#FF000003" Offset="1"/>
+                            <LinearGradientBrush EndPoint="0.5,1" 
+												 StartPoint="0.5,0">
+                                <GradientStop Color="Red" 
+											  Offset="0"/>
+                                <GradientStop Color="#FF000003" 
+											  Offset="1"/>
                             </LinearGradientBrush>
                         </materialDesign:Card.Background>
                         <Grid>
@@ -334,18 +865,22 @@
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                Trạng thái kết nối:
-                            </TextBlock>
-                            <TextBlock x:Name="trangThaiKetNoi" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="LightGreen" Grid.Row="1" FontSize="20">
+                            <TextBlock Grid.Row="0" 
+									   FontSize="20" 
+									   HorizontalAlignment="Center" 
+									   VerticalAlignment="Center">Trạng thái kết nối:</TextBlock>
+                            <TextBlock x:Name="trangThaiKetNoi" 
+									   HorizontalAlignment="Center"
+									   VerticalAlignment="Center" Foreground="LightGreen" Grid.Row="1" FontSize="20">
 
                             </TextBlock>
                         </Grid>
                     </materialDesign:Card>
-                    <materialDesign:Card  
+                    <materialDesign:Card HorizontalAlignment="Right"
                         Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"  
-                        Width="275"  
-                        Margin="8"  
+                        Width="308"  
+                        Height="55"
+                        Margin="25,7,30,6.8"  
                         UniformCornerRadius="6">
                         <materialDesign:Card.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -354,9 +889,11 @@
                             </LinearGradientBrush>
                         </materialDesign:Card.Background>
                         <Grid>
-                            <TextBlock x:Name="dongHo" Grid.Row="0" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center">
-
-                            </TextBlock>
+                            <TextBlock x:Name="dongHo" 
+									   Grid.Row="0" 
+									   FontSize="40" 
+									   HorizontalAlignment="Center" 
+									   VerticalAlignment="Center"/>
                         </Grid>
                     </materialDesign:Card>
                 </StackPanel>

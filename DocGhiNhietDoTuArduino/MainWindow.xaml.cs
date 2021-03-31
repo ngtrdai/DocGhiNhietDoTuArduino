@@ -71,15 +71,15 @@ namespace DocGhiNhietDoTuArduino
                 string NhietDo = arrListStr[0];
                 string DoAm = arrListStr[1];
                 string KhongKhi = arrListStr[2];
-                string DoAmDat = arrListStr[3].Substring(0, arrListStr[3].Length - 1);
+                //string DoAmDat = arrListStr[3].Substring(0, arrListStr[3].Length - 1);
                 nhietDo.Text = NhietDo;
                 doAm.Text = DoAm;
                 khongKhi.Text = KhongKhi;
-                doAmDat.Text = DoAmDat;
+                //doAmDat.Text = DoAmDat;
                 SeriesCollection[0].Values.Add(Convert.ToDouble(NhietDo));
                 SeriesCollection[1].Values.Add(Convert.ToDouble(DoAm));
                 SeriesCollection[2].Values.Add(Convert.ToDouble(KhongKhi));
-                SeriesCollection[3].Values.Add(Convert.ToDouble(DoAmDat));
+                //SeriesCollection[3].Values.Add(Convert.ToDouble(DoAmDat));
                 dataGrid.Items.Add(new Data()
                 {
                     cNgay = DateTime.Now.ToShortDateString(),
@@ -87,7 +87,7 @@ namespace DocGhiNhietDoTuArduino
                     cDoAm = Convert.ToDouble(DoAm),
                     cThoiGian = DateTime.Now.ToShortTimeString(),
                     cKhongKhi = Convert.ToDouble(KhongKhi),
-                    cDoAmDat = Convert.ToDouble(DoAmDat)
+                    //cDoAmDat = Convert.ToDouble(DoAmDat)
                 });
             }
         }
@@ -96,10 +96,21 @@ namespace DocGhiNhietDoTuArduino
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             timerDongHo.Start();
-            string[] danhSachCongCOM = SerialPort.GetPortNames();
-            foreach (string item in danhSachCongCOM)
+            string[] nhietDoCbb = { "28°C", "30°C", "35°C", "38°C", "40°C" };
+            foreach (string item in nhietDoCbb)
             {
-                comList.Items.Add(item);
+                cbbNhietDo.Items.Add(item);
+            }
+            string[] danhSachCongCOM = SerialPort.GetPortNames();
+            int[] danhSoCongCOM = new int[danhSachCongCOM.Length];
+            for (int i = 0; i < danhSachCongCOM.Length; i++)
+            {
+                danhSoCongCOM[i] = int.Parse(danhSachCongCOM[i].Substring(3));
+            }
+            Array.Sort(danhSoCongCOM);
+            foreach (int item in danhSoCongCOM)
+            {
+                comList.Items.Add("COM" + item.ToString());
             }
             // Vẽ đồ thị
             SeriesCollection = new SeriesCollection
@@ -118,12 +129,13 @@ namespace DocGhiNhietDoTuArduino
                 {
                     Title = "Không Khí",
                     Values = new ChartValues<double>{}
-                },
-                new LineSeries
-                {
-                    Title = "Độ Ẩm Đất",
-                    Values = new ChartValues<double>{}
                 }
+                //,
+                //new LineSeries
+                //{
+                //    Title = "Độ Ẩm Đất",
+                //    Values = new ChartValues<double>{}
+                //}
             };
 
             YFormatter = value => value.ToString("");
@@ -133,6 +145,10 @@ namespace DocGhiNhietDoTuArduino
         public MainWindow()
         {
             InitializeComponent();
+            string[] listBaudRate = { "1200", "2400", "4800", "9600", "19200", "38400", "57600", "115200" };
+            comBaudrate.ItemsSource = listBaudRate;
+            string[] listSpeed = { "1", "2", "3", "4", "5", "10", "15", "30" };
+            comTocDo.ItemsSource = listSpeed;
             timerNhanDuLieu.Tick += TimerNhanDuLieu_Tick;
             timerDongHo.Tick += TimerDongHo_Tick;
             timerNhanDuLieu.Interval = new TimeSpan(0, 0, 5);
@@ -172,7 +188,7 @@ namespace DocGhiNhietDoTuArduino
         }
         #endregion
         #region Lưu Excel
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnSaveCSV_Click(object sender, RoutedEventArgs e)
         {
             this.dataGrid.SelectAllCells();
             this.dataGrid.ClipboardCopyMode = DataGridClipboardCopyMode.IncludeHeader;
@@ -193,29 +209,6 @@ namespace DocGhiNhietDoTuArduino
             }
         }
         #endregion
-        private void lstMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (lstMenu.SelectedIndex == 0)
-            {
-                Window wCaiDat = new CaiDat();
-                wCaiDat.ShowDialog();
-            }
-            else if (lstMenu.SelectedIndex == 1)
-            {
-                string thongTin = 
-                    "PHẦN MỀM ĐỌC GHI DỮ LIỆU MÔI TRƯỜNG\r\n" +
-                    "Sử dụng cảm biến DHT22, MQ135, SMS-V2\r\n" +
-                    "Môn học: Cảm biến và cơ cấu chấp hành\r\n" +
-                    "Thành viên: Nguyễn Trọng Đại, Trần Triệu Vĩ" +
-                    "\r\n----------------" +
-                    "\r\nTác giả: Nguyễn Trọng Đại - @ngtrdai\r\n" +
-                    "Phiên bản phần mềm: v1.1\r\n" +
-                    "Github: ngtrdai/DocGhiNhietDoTuArduino"
-                    ;
-                MessageBox.Show(thongTin,"Thông tin phần mềm",MessageBoxButton.OK,MessageBoxImage.Information);
-            }
-            
-        }
 
         private void btnLuuDoThi_Click(object sender, RoutedEventArgs e)
         {
@@ -234,6 +227,54 @@ namespace DocGhiNhietDoTuArduino
                 using (var stream = File.Create(fileName)) encoder.Save(stream);
             }            
         }
+
+        private void thietDat(object sender, RoutedEventArgs e)
+        {   
+            if (serialPort.IsOpen)
+            {
+                string xNhietDo = "";
+                if (cbbNhietDo.SelectedItem.ToString() == "28°C") 
+                {
+                    xNhietDo = "1";
+                }
+                if (cbbNhietDo.SelectedItem.ToString() == "30°C") 
+                {
+                    xNhietDo = "2";
+                }
+                if (cbbNhietDo.SelectedItem.ToString() == "35°C")  
+                {
+                    xNhietDo = "3";
+                }
+                if (cbbNhietDo.SelectedItem.ToString() == "38°C")  
+                {
+                    xNhietDo = "4";
+                }
+                if (cbbNhietDo.SelectedItem.ToString() == "40°C")  
+                {
+                    xNhietDo = "5";
+                }
+                serialPort.Write(xNhietDo);
+                thongBaoTrangThai.Text = "Đã cài đặt nhiệt độ";
+                
+            }
+            else
+            {
+                MessageBox.Show("Chưa mở cổng", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void huyThietDat(object sender, RoutedEventArgs e)
+        {
+            if (serialPort.IsOpen)
+            {
+                serialPort.Write("0");
+                thongBaoTrangThai.Text = "Chưa cài đặt nhiệt độ";
+            }
+            else
+            {
+                MessageBox.Show("Chưa mở cổng","Thông báo",MessageBoxButton.OK,MessageBoxImage.Error);
+            }
+        }
     }
     public class Data
     {
@@ -242,7 +283,7 @@ namespace DocGhiNhietDoTuArduino
         public double cDoAm { get; set; }
         public string cThoiGian { get; set; }
         public double cKhongKhi { get; set; }
-        public double cDoAmDat { get; set; }
+        //public double cDoAmDat { get; set; }
     }
 
 }
