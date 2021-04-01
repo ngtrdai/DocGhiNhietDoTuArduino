@@ -35,18 +35,15 @@ namespace DocGhiNhietDoTuArduino
 
     public partial class MainWindow : Window
     {
-        #region Khởi tạo
-        //List<int> baudRate = new List<int>; 
-        #endregion
         #region Khởi tạo đồ thị
         public SeriesCollection SeriesCollection { get; set; }
         public List Labels { get; set; }
         public Func<double, string> YFormatter { get; set; }
+        public Func<double, string> XFormatter { get; set; }
         #endregion
         #region Thiết lập timer
         DispatcherTimer timerDongHo = new DispatcherTimer();
         DispatcherTimer timerNhanDuLieu = new DispatcherTimer();
-        DateTime DongHo = new DateTime();
         #endregion
         #region Khai báo
         SerialPort serialPort = new SerialPort();
@@ -61,11 +58,11 @@ namespace DocGhiNhietDoTuArduino
         {
             if (!serialPort.IsOpen)
             {
-                trangThaiKetNoi.Text = "Chưa kết nối";
+                trangThaiKetNoi.Kind = MaterialDesignThemes.Wpf.PackIconKind.LinkVariantOff;
             }
             else if (serialPort.IsOpen)
             {
-                trangThaiKetNoi.Text = "Đã kết nối";
+                trangThaiKetNoi.Kind = MaterialDesignThemes.Wpf.PackIconKind.LinkVariant;
                 string duLieuNhan = serialPort.ReadLine().ToString();
                 string[] arrListStr = duLieuNhan.Split(',');
                 string NhietDo = arrListStr[0];
@@ -105,7 +102,7 @@ namespace DocGhiNhietDoTuArduino
             int[] danhSoCongCOM = new int[danhSachCongCOM.Length];
             for (int i = 0; i < danhSachCongCOM.Length; i++)
             {
-                danhSoCongCOM[i] = int.Parse(danhSachCongCOM[i].Substring(3));
+                danhSoCongCOM[i] = Convert.ToInt32(danhSachCongCOM[i].Substring(3));
             }
             Array.Sort(danhSoCongCOM);
             foreach (int item in danhSoCongCOM)
@@ -202,14 +199,14 @@ namespace DocGhiNhietDoTuArduino
             fileName = saveFileDialog.FileName;
             if (fileName != "")
             {
-                StreamWriter sw = new StreamWriter(fileName, true, Encoding.GetEncoding("iso-8859-1"));
+                StreamWriter sw = new StreamWriter(fileName, true, Encoding.UTF8);
                 sw.WriteLine(result);
                 sw.Close();
                 Process.Start(fileName);
             }
         }
         #endregion
-
+        #region Đồ thị
         private void btnLuuDoThi_Click(object sender, RoutedEventArgs e)
         {
             var bitmap = new RenderTargetBitmap((int)DoThi.ActualWidth, (int)DoThi.ActualHeight, 96, 96, PixelFormats.Pbgra32);
@@ -227,7 +224,8 @@ namespace DocGhiNhietDoTuArduino
                 using (var stream = File.Create(fileName)) encoder.Save(stream);
             }            
         }
-
+        #endregion
+        #region Cài đặt
         private void thietDat(object sender, RoutedEventArgs e)
         {   
             if (serialPort.IsOpen)
@@ -254,7 +252,6 @@ namespace DocGhiNhietDoTuArduino
                     xNhietDo = "5";
                 }
                 serialPort.Write(xNhietDo);
-                thongBaoTrangThai.Text = "Đã cài đặt nhiệt độ";
                 
             }
             else
@@ -268,14 +265,49 @@ namespace DocGhiNhietDoTuArduino
             if (serialPort.IsOpen)
             {
                 serialPort.Write("0");
-                thongBaoTrangThai.Text = "Chưa cài đặt nhiệt độ";
             }
             else
             {
                 MessageBox.Show("Chưa mở cổng","Thông báo",MessageBoxButton.OK,MessageBoxImage.Error);
             }
         }
+        #endregion
+        #region Thông tin
+        private void btnOpenVideoHDSD_Click(object sender, RoutedEventArgs e)
+        {
+            Window wdVideo = new VideoHuongDan();
+            wdVideo.Show();
+        }
+
+        private void btnOpenGithub_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(@"https://github.com/ngtrdai/DocGhiNhietDoTuArduino");
+
+        }
+        #endregion
+
+        private void btnPhone1_Click(object sender, RoutedEventArgs e)
+        {
+            string thongTin = "Tên: Nguyễn Trọng Đại\r\nSĐT: 0979.808.617\r\nEmail: 19146146@student.hcmute.edu.vn";
+            MessageBox.Show(thongTin, "THÔNG TIN LIÊN LẠC",MessageBoxButton.OK,MessageBoxImage.Information);
+        }
+
+        private void btnMail1_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(@"mailto:19146146@student.hcmute.edu.vn");
+        }
+
+        private void btnGit1_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(@"https://github.com/ngtrdai");
+        }
+
+        private void btnFacebook1_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(@"https://facebook.com/nguyendai5901");
+        }
     }
+    #region Class
     public class Data
     {
         public string cNgay { get; set; }
@@ -283,7 +315,6 @@ namespace DocGhiNhietDoTuArduino
         public double cDoAm { get; set; }
         public string cThoiGian { get; set; }
         public double cKhongKhi { get; set; }
-        //public double cDoAmDat { get; set; }
     }
-
+    #endregion
 }
