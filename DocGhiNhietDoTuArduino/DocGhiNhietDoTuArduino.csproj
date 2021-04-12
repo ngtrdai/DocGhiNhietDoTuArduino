@@ -66,18 +66,22 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="xNet">
-      <HintPath>.\xNet.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CanhBao.xaml.cs">
+      <DependentUpon>CanhBao.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VideoHuongDan.xaml.cs">
       <DependentUpon>VideoHuongDan.xaml</DependentUpon>
     </Compile>
+    <Page Include="CanhBao.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -157,7 +161,9 @@
   <ItemGroup>
     <Resource Include="LogoPNG.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Resources\audio\" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\img\LogoPNG.png" />
   </ItemGroup>

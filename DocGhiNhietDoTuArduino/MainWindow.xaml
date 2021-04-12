@@ -35,24 +35,20 @@
         <!--Header -->
         <materialDesign:ColorZone  Grid.Row="0" 
             Mode="Inverted"  
-            Padding="16">
+            Padding="10">
             <materialDesign:ColorZone.Background>
                 <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                     <GradientStop Color="Red"/>
                     <GradientStop Color="Black" Offset="1"/>
                 </LinearGradientBrush>
             </materialDesign:ColorZone.Background>
-            <DockPanel>
-                <!-- Title -->
-                <StackPanel     
-                    Orientation="Horizontal">
-                    <TextBlock        
-                        VerticalAlignment="Center"       
-                        Margin="5 0 0 0" 
-						FontSize="20" 
-						FontFamily="Calibri">THÔNG SỐ MÔI TRƯỜNG</TextBlock>
-                </StackPanel>
-            </DockPanel>
+                <!-- Title -->       
+                       <TextBlock VerticalAlignment="Center"					
+								  HorizontalAlignment="Center"                       
+								  Margin="5 0 0 0" 						
+								  FontSize="30"						
+								  FontWeight="Bold"						
+								  FontFamily="Calibri">THÔNG SỐ MÔI TRƯỜNG</TextBlock>
         </materialDesign:ColorZone>
         <!-- Body -->
         <Grid Grid.Row="1">
@@ -499,6 +495,8 @@
                                             <ColumnDefinition></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
                                         <Button Grid.Column="0"
+                                                Name="btnCaiDat"
+                                                Click="thietDat"
                                                 Margin="0 0 0 0"
                                                 Height="65"
                                                 Content="Cài đặt"
@@ -515,6 +513,8 @@
                                             </Button.Background>
                                         </Button>
                                         <Button Grid.Column="1" 
+                                                Name="btnKhoiPhuc"
+                                                Click="huyThietDat"
                                                 Height="65"
                                                 Margin="10 0 0 0"
                                                 Content="Khôi phục"
@@ -753,7 +753,9 @@
 																	Width="auto" 
 																	Height="auto"      
 																	Padding="2 0 2 0"    
-																	materialDesign:RippleAssist.IsCentered="True">
+																	materialDesign:RippleAssist.IsCentered="True"
+																	Name="btnPhone2"
+																	Click="btnPhone2_Click">
                                                                 <materialDesign:PackIcon Width="30"  
 																						 Height="30"
 																						 Kind="Phone"/></Button>
@@ -762,7 +764,9 @@
 																	Width="auto" 
 																	Height="auto"        
 																	Padding="2 0 2 0"        
-																	materialDesign:RippleAssist.IsCentered="True">
+																	materialDesign:RippleAssist.IsCentered="True"
+																	Name="btnMail2"
+																	Click="btnMail2_Click">
                                                                 <materialDesign:PackIcon Width="30"   
 																						 Height="30"   
 																						 Kind="Email"/></Button>
@@ -771,7 +775,9 @@
 																	Width="auto" 
 																	Height="auto"   
 																	Padding="2 0 2 0"        
-																	materialDesign:RippleAssist.IsCentered="True">
+																	materialDesign:RippleAssist.IsCentered="True"
+																	Name="btnGit2"
+																	Click="btnGit2_Click">
                                                                 <materialDesign:PackIcon Width="30"    
 																						 Height="30"       
 																						 Kind="Github"/></Button>
@@ -779,7 +785,9 @@
 																	Style="{StaticResource MaterialDesignToolForegroundButton}"    
 																	Width="auto" Height="auto" 
 																	Padding="2 0 2 0"        
-																	materialDesign:RippleAssist.IsCentered="True">
+																	materialDesign:RippleAssist.IsCentered="True"
+																	Name="btnFacebook2"
+																	Click="btnFacebook2_Click">
                                                                 <materialDesign:PackIcon Width="30"    
 																						 Height="30"   
 																						 Kind="Facebook"/></Button>

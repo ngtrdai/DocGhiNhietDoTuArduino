@@ -35,6 +35,10 @@ namespace DocGhiNhietDoTuArduino
 
     public partial class MainWindow : Window
     {
+        #region Khởi tạo biến
+        public double nhietDoCaiDat = 50;
+        #endregion
+
         #region Khởi tạo đồ thị
         public SeriesCollection SeriesCollection { get; set; }
         public List Labels { get; set; }
@@ -52,6 +56,14 @@ namespace DocGhiNhietDoTuArduino
         private void TimerDongHo_Tick(object sender, EventArgs e)
         {
             dongHo.Text = DateTime.Now.ToShortTimeString();
+            if (serialPort.IsOpen)
+            {
+                if (Convert.ToDouble(nhietDo.Text) >= nhietDoCaiDat)
+                {
+                    Window wdCanhBao = new CanhBao();
+                    wdCanhBao.ShowDialog();
+                }
+            }            
         }
 
         private void TimerNhanDuLieu_Tick(object sender, EventArgs e)
@@ -68,23 +80,19 @@ namespace DocGhiNhietDoTuArduino
                 string NhietDo = arrListStr[0];
                 string DoAm = arrListStr[1];
                 string KhongKhi = arrListStr[2];
-                //string DoAmDat = arrListStr[3].Substring(0, arrListStr[3].Length - 1);
                 nhietDo.Text = NhietDo;
                 doAm.Text = DoAm;
                 khongKhi.Text = KhongKhi;
-                //doAmDat.Text = DoAmDat;
                 SeriesCollection[0].Values.Add(Convert.ToDouble(NhietDo));
                 SeriesCollection[1].Values.Add(Convert.ToDouble(DoAm));
                 SeriesCollection[2].Values.Add(Convert.ToDouble(KhongKhi));
-                //SeriesCollection[3].Values.Add(Convert.ToDouble(DoAmDat));
                 dataGrid.Items.Add(new Data()
                 {
                     cNgay = DateTime.Now.ToShortDateString(),
                     cNhietDo = Convert.ToDouble(NhietDo),
                     cDoAm = Convert.ToDouble(DoAm),
                     cThoiGian = DateTime.Now.ToShortTimeString(),
-                    cKhongKhi = Convert.ToDouble(KhongKhi),
-                    //cDoAmDat = Convert.ToDouble(DoAmDat)
+                    cKhongKhi = Convert.ToDouble(KhongKhi)
                 });
             }
         }
@@ -127,14 +135,7 @@ namespace DocGhiNhietDoTuArduino
                     Title = "Không Khí",
                     Values = new ChartValues<double>{}
                 }
-                //,
-                //new LineSeries
-                //{
-                //    Title = "Độ Ẩm Đất",
-                //    Values = new ChartValues<double>{}
-                //}
             };
-
             YFormatter = value => value.ToString("");
             DataContext = this;
         }
@@ -227,49 +228,22 @@ namespace DocGhiNhietDoTuArduino
         #endregion
         #region Cài đặt
         private void thietDat(object sender, RoutedEventArgs e)
-        {   
-            if (serialPort.IsOpen)
+        {
+            if (cbbNhietDo.SelectedItem != null)
             {
-                string xNhietDo = "";
-                if (cbbNhietDo.SelectedItem.ToString() == "28°C") 
-                {
-                    xNhietDo = "1";
-                }
-                if (cbbNhietDo.SelectedItem.ToString() == "30°C") 
-                {
-                    xNhietDo = "2";
-                }
-                if (cbbNhietDo.SelectedItem.ToString() == "35°C")  
-                {
-                    xNhietDo = "3";
-                }
-                if (cbbNhietDo.SelectedItem.ToString() == "38°C")  
-                {
-                    xNhietDo = "4";
-                }
-                if (cbbNhietDo.SelectedItem.ToString() == "40°C")  
-                {
-                    xNhietDo = "5";
-                }
-                serialPort.Write(xNhietDo);
-                
+                nhietDoCaiDat = Convert.ToDouble(cbbNhietDo.SelectedItem.ToString().Substring(0, cbbNhietDo.SelectedItem.ToString().Length - 2));
+                MessageBox.Show("Cài đặt thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                MessageBox.Show("Chưa mở cổng", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Không hợp lệ!!!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void huyThietDat(object sender, RoutedEventArgs e)
         {
-            if (serialPort.IsOpen)
-            {
-                serialPort.Write("0");
-            }
-            else
-            {
-                MessageBox.Show("Chưa mở cổng","Thông báo",MessageBoxButton.OK,MessageBoxImage.Error);
-            }
+            nhietDoCaiDat = 40;
+            MessageBox.Show("Khôi phục thành công", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         #endregion
         #region Thông tin
@@ -284,14 +258,11 @@ namespace DocGhiNhietDoTuArduino
             Process.Start(@"https://github.com/ngtrdai/DocGhiNhietDoTuArduino");
 
         }
-        #endregion
-
         private void btnPhone1_Click(object sender, RoutedEventArgs e)
         {
             string thongTin = "Tên: Nguyễn Trọng Đại\r\nSĐT: 0979.808.617\r\nEmail: 19146146@student.hcmute.edu.vn";
-            MessageBox.Show(thongTin, "THÔNG TIN LIÊN LẠC",MessageBoxButton.OK,MessageBoxImage.Information);
+            MessageBox.Show(thongTin, "THÔNG TIN LIÊN LẠC", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-
         private void btnMail1_Click(object sender, RoutedEventArgs e)
         {
             Process.Start(@"mailto:19146146@student.hcmute.edu.vn");
@@ -306,6 +277,28 @@ namespace DocGhiNhietDoTuArduino
         {
             Process.Start(@"https://facebook.com/nguyendai5901");
         }
+        private void btnPhone2_Click(object sender, RoutedEventArgs e)
+        {
+            string thongTin = "Tên: Trần Triệu Vĩ\r\nSĐT: 0XXX.XXX.XXX\r\nEmail: 19146301@student.hcmute.edu.vn";
+            MessageBox.Show(thongTin, "THÔNG TIN LIÊN LẠC", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        private void btnMail2_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(@"mailto:19146301@student.hcmute.edu.vn");
+        }
+
+        private void btnGit2_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(@"https://github.com/trantrieuvi");
+        }
+
+        private void btnFacebook2_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(@"https://www.facebook.com/trieuvihh111");
+        }
+        #endregion
+
+
     }
     #region Class
     public class Data
