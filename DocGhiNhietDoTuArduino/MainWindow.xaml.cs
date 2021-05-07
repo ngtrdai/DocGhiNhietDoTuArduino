@@ -73,7 +73,6 @@ namespace DocGhiNhietDoTuArduino
                 }
             }            
         }
-
         private void TimerNhanDuLieu_Tick(object sender, EventArgs e)
         {
             if (!serialPort.IsOpen)
@@ -102,6 +101,15 @@ namespace DocGhiNhietDoTuArduino
                     cThoiGian = DateTime.Now.ToShortTimeString(),
                     cKhongKhi = Convert.ToDouble(KhongKhi)
                 });
+            }
+            if (dataGrid.Items.Count > 0)
+            {
+                var border = VisualTreeHelper.GetChild(dataGrid, 0) as Decorator;
+                if (border != null)
+                {
+                    var scroll = border.Child as ScrollViewer;
+                    if (scroll != null) scroll.ScrollToEnd();
+                }
             }
         }
         #endregion
@@ -247,7 +255,6 @@ namespace DocGhiNhietDoTuArduino
                 MessageBox.Show("Không hợp lệ!!!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
         private void huyThietDat(object sender, RoutedEventArgs e)
         {
             nhietDoCaiDat = 40;
@@ -305,8 +312,6 @@ namespace DocGhiNhietDoTuArduino
             Process.Start(@"https://www.facebook.com/trieuvihh111");
         }
         #endregion
-
-
     }
     #region Class
     public class Data

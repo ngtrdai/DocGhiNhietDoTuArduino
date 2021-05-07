@@ -379,7 +379,8 @@
 																	  VerticalAlignment="Center"                                        
 																	  HorizontalAlignment="Center"                                        
 																	  ContentSource="Header"                                        
-																	  Margin="10,2"/>
+																	  Margin="10,2"
+																	  />
                                                 </Border>
                                                 <ControlTemplate.Triggers>
                                                     <Trigger Property="IsSelected" Value="True">

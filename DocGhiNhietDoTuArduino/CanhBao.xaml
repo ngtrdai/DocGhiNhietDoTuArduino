@@ -49,7 +49,7 @@
                               Width="0" 
                               Height="0" 
                               Stretch="Fill"
-                              Source="./Resources/Audio"/>
+                              Source="./Resources/Audio/Alarm.mp3"/>
             </Grid>
             <Grid Grid.Row="1">
                 <TextBlock HorizontalAlignment="Center"
