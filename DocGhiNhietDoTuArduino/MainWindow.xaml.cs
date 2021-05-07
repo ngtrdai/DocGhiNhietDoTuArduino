@@ -58,10 +58,18 @@ namespace DocGhiNhietDoTuArduino
             dongHo.Text = DateTime.Now.ToShortTimeString();
             if (serialPort.IsOpen)
             {
-                if (Convert.ToDouble(nhietDo.Text) >= nhietDoCaiDat)
+                try
                 {
-                    Window wdCanhBao = new CanhBao();
-                    wdCanhBao.ShowDialog();
+                    double dNhietDo = Convert.ToDouble(nhietDo.Text);
+                    if (dNhietDo >= nhietDoCaiDat)
+                    {
+                        Window wdCanhBao = new CanhBao();
+                        wdCanhBao.ShowDialog();
+                    }
+                }
+                catch
+                {
+
                 }
             }            
         }
@@ -149,7 +157,7 @@ namespace DocGhiNhietDoTuArduino
             comTocDo.ItemsSource = listSpeed;
             timerNhanDuLieu.Tick += TimerNhanDuLieu_Tick;
             timerDongHo.Tick += TimerDongHo_Tick;
-            timerNhanDuLieu.Interval = new TimeSpan(0, 0, 5);
+            timerNhanDuLieu.Interval = new TimeSpan(0, 0, 1);
             timerNhanDuLieu.Start();
         }
         #region Kết nối
