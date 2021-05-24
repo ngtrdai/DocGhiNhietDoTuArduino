@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <MediaElement Name="mdMain"
-                          Source="Resources/video/Rec 0001.mp4" 
+                          Source="Resources/video/Video.mp4" 
                           LoadedBehavior="Manual"
                           Stretch="Uniform"></MediaElement>
         </Grid>
