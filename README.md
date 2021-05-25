@@ -1,4 +1,4 @@
-<H1> ĐỌC GHI DỮ LIỆU MÔI TRƯỜNG
+<H1>PHẦN MỀM ĐỌC GHI DỮ LIỆU MÔI TRƯỜNG
   
 ---
   
@@ -7,9 +7,9 @@
 # Mục lục:
 1. [Thông tin môn học](#thông-tin-môn-học)
 2. [Thông tin đề tài](#thông-tin-về-đề-tài)
-   1. [Sử dụng linh kiện](#linh-kiện-sử-dụng)
+   1. [Sơ đồ khối](#sơ-đồ-khối)
    2. [Sơ đồ nguyên lí](#sơ-đồ-nguyên-lí)
-   3. [Sơ đồ PCB](#sơ-đồ-pcb)
+   3. [Sơ đồ lắp đặt](#sơ-đồ-lắp-đặt)
    4. [Sản phẩm thực tế](#sản-phẩm-thực-tế)
 3. [Giao tiếp Arduino với các cảm biến](#giao-tiếp-giữa-arduino-và-cảm-biến)
 4. [Giới thiệu về phần mềm](#giới-thiệu-về-phần-mềm)
@@ -33,90 +33,99 @@ Trần Triệu Vĩ - 19146301 - @trantrieuvi.
 
 # Thông tin về đề tài:
 ---
-## Sử dụng linh kiện
-
+## Sơ đồ khối
+  
+<img src="https://github.com/ngtrdai/DocGhiNhietDoTuArduino/blob/master/DocGhiNhietDoTuArduino/Resources/img/SoDoKhoi.svg" alt="Sơ đồ khối" title="Sơ đồ khối" width="1000" height="600" />
+  
 ## Sơ đồ nguyên lí
-
-## Sơ đồ PCB
-
+<img src="https://github.com/ngtrdai/DocGhiNhietDoTuArduino/blob/master/DocGhiNhietDoTuArduino/Resources/img/SoDoNguyenLi.svg" alt="Sơ đồ nguyên lí" title="Sơ đồ nguyên lí" width="1000" height="600" />
+  
+## Sơ đồ lắp đặt
+  
+<img src="https://github.com/ngtrdai/DocGhiNhietDoTuArduino/blob/master/DocGhiNhietDoTuArduino/Resources/img/SoDoLapDat.svg" alt="Sơ đồ lắp đặt" title="Sơ đồ lắp đặt" width="1000" height="600" />
+  
 ## Sản phẩm thực tế
+
+<img src="https://github.com/ngtrdai/DocGhiNhietDoTuArduino/blob/master/DocGhiNhietDoTuArduino/Resources/img/SanPhamThucTe.jpg" alt="Sơ đồ lắp đặt" title="Sơ đồ lắp đặt"  />
 
 # Giao tiếp giữa Arduino và cảm biến
 ---
 
 ```
-    #include <Wire.h>                                               // Khai báo thư viện Wire.h
-    #include <LiquidCrystal_I2C.h>                                  // Khai báo thư viện LiquidCrystal_I2C.h để sử dụng LCD.
-    #include <dht_nonblocking.h>                                    // Khai báo thư viện cảm biến DHT
-    #include "MQ135.h"                                              // Khai báo thư viện cảm biến MQ135
-    LiquidCrystal_I2C lcd(0x27,16,2);                               // Thiết lập LCD
-    static const int DHT_SENSOR_PIN = A0;                           // Chân nhận dữ liệu Analog từ cảm biến DHT
-    #define DHT_SENSOR_TYPE DHT_TYPE_22                             // Khai báo loại cảm biến DHT cụ thể là DHT22
-    DHT_nonblocking dht_sensor(DHT_SENSOR_PIN, DHT_SENSOR_TYPE);    // Thiết lập DHT
-    #define PIN_MQ135 A3                                            // Chân nhận dữ liệu Analog từ cảm biến MQ135
-    MQ135 mq135_sensor = MQ135(PIN_MQ135);                          // Tạo đối tượng cảm biến MQ135
+#include <Wire.h> 
+#include <LiquidCrystal_I2C.h>
+#include <dht_nonblocking.h>
+#include "MQ135.h"
+LiquidCrystal_I2C lcd(0x27,16,2); 
+static const int DHT_SENSOR_PIN = A0;
+#define DHT_SENSOR_TYPE DHT_TYPE_22
+DHT_nonblocking dht_sensor(DHT_SENSOR_PIN, DHT_SENSOR_TYPE);
+#define PIN_MQ135 A3 
+MQ135 mq135_sensor = MQ135(PIN_MQ135);
 
-    void setup(){
-        Serial.begin(9600);                                         // Thiết lập Baudrate cho cổng Serial
-        lcd.init();                                                 // Khởi tạo LCD
-        lcd.backlight();                                            
-        lcd.setCursor(4,0);
-        lcd.print("CB - CCCH");
-        lcd.setCursor(0,1);
-        lcd.print("@ngtrdai-@trtrvi");
-    }
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(10, OUTPUT);
+  lcd.init();                    
+  lcd.backlight();
+  lcd.setCursor(4,0);
+  lcd.print("CB - CCCH");
+  lcd.setCursor(0,1);
+  lcd.print("@ngtrdai-@trtrvi");
+}
 
-    static bool doThongSoMoiTruong(float* NhietDo, float* DoAm){
-        static unsigned long mocThoiGian = millis();
-        if(millis() - mocThoiGian > 1000ul){
-            if(dht_sensor.measure(NhietDo, DoAm) == true){
-            mocThoiGian = millis();
-            return true;
-            }
-        }
-        return false;
+static bool doThongSoMoiTruong(float* NhietDo, float* DoAm){
+  static unsigned long mocThoiGian = millis();
+  if(millis() - mocThoiGian > 1000ul){
+    if(dht_sensor.measure(NhietDo, DoAm) == true){
+      mocThoiGian = millis();
+      return true;
     }
+  }
+  return false;
+}
 
-    void loop(){
-        float doAm;
-        float nhietDo;
-        float khongKhi;
-        int doAmDat = analogRead(A1);
-        doAmDat = map(doAmDat,0, 1023,0, 100);
-        if(doThongSoMoiTruong(&nhietDo, &doAm) == true){
-            khongKhi = mq135_sensor.getCorrectedPPM(nhietDo, doAm);
-            Serial.print(nhietDo);
-            Serial.print(",");
-            Serial.print(doAm);
-            Serial.print(",");
-            Serial.print(khongKhi);
-            Serial.print(",");
-            Serial.println(doAmDat);
-            lcd.clear();
-            lcd.setCursor(0,0);
-            lcd.print("NHIET DO:");
-            lcd.setCursor(9,0);
-            lcd.print(nhietDo);
-            lcd.setCursor(0,1);
-            lcd.print("DO AM:");
-            lcd.setCursor(6,1);
-            lcd.print(doAm);
-        }
-    }
+void loop()
+{
+  float doAm;
+  float nhietDo;
+  float khongKhi;
+  int doAmDat = analogRead(A1);
+  doAmDat = map(doAmDat,0, 1023,0, 100);
+  if(doThongSoMoiTruong(&nhietDo, &doAm) == true){
+    khongKhi = mq135_sensor.getCorrectedPPM(nhietDo, doAm);
+    Serial.print(nhietDo);
+    Serial.print(",");
+    Serial.print(doAm);
+    Serial.print(",");
+    Serial.print(khongKhi);
+    Serial.print(",");
+    Serial.println(doAmDat);
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("NHIET DO:");
+    lcd.setCursor(9,0);
+    lcd.print(nhietDo);
+    lcd.setCursor(0,1);
+    lcd.print("DO AM:");
+    lcd.setCursor(6,1);
+    lcd.print(doAm);
+  }
+}
 ```
 
 # Giới thiệu về phần mềm
 ---
 ## Những chức năng chính
-- [X] Ghi nhận dữ liệu nhiệt độ, độ ẩm, chất lượng không khí, và độ ẩm đất.
-- [X] Kết nối qua cổng Serial Port, có thể sử dụng với Module Bluetooth.
-- [X] Vẽ đồ thị theo thời gian thực.
-- [X] Lưu đồ thị với file .png.
-- [X] Hiển thị DataGrid dữ liệu ghi nhận theo thời gian thực.
-- [X] Lưu dữ liệu với file .csv để đọc được với Excel.
+- [X] Đọc dữ liệu nhiệt độ, độ ẩm, không khí từ Arduino thông qua cổng COM và hiện thị lên màn hình.
+- [X] Vẽ và lưu đồ thị từ những dữ liệu nhận được.
+- [X] Hiện thị dữ liệu nhận được theo thời gian thực.
+- [X] Xuất dữ liệu ra file (.csv) để đọc bằng Excel.
+- [X] Hiện thị cảnh báo khi vượt quá nhiệt độ cài đặt.
 - [ ] Cập nhật sau . . .
 ### Screenshot
-![Ảnh chụp màn hình](https://github.com/ngtrdai/DocGhiNhietDoTuArduino/blob/master/Screenshot.png)
+![Ảnh chụp màn hình](https://github.com/ngtrdai/DocGhiNhietDoTuArduino/blob/master/DocGhiNhietDoTuArduino/Resources/img/Screenshot.png)
 ## Nhận dữ liệu từ Arduino và xử lý dữ liệu bằng C#
 ### Sự kiện khi chọn cổng COM và nhấn nút kết nối
 ```
@@ -145,7 +154,7 @@ Trần Triệu Vĩ - 19146301 - @trantrieuvi.
       }
   }
 ```
-### Timer nhận dữ liệu
+### Timer nhận dữ liệu và vẽ đồ thị
 ```
   private void TimerNhanDuLieu_Tick(object sender, EventArgs e){
       if (!serialPort.IsOpen){
@@ -219,4 +228,4 @@ Trần Triệu Vĩ - 19146301 - @trantrieuvi.
 ```
 # Lời kết
 ---
-Qua project nhỏ này thì nhóm chúng em đã học được khá nhiều điều, về cách sử dụng Arduino, đọc thông số cảm biến, thiết kế mạch, in mạch, xử lí dữ liệu, ôn tập lại kiến thức về C#.
+Qua project này thì nhóm chúng em đã học được khá nhiều điều, về cách sử dụng Arduino, đọc thông số cảm biến, thiết kế mạch, in mạch, xử lí dữ liệu, ôn tập lại kiến thức về C#.
