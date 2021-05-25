@@ -91,17 +91,13 @@ void loop()
   float doAm;
   float nhietDo;
   float khongKhi;
-  int doAmDat = analogRead(A1);
-  doAmDat = map(doAmDat,0, 1023,0, 100);
   if(doThongSoMoiTruong(&nhietDo, &doAm) == true){
     khongKhi = mq135_sensor.getCorrectedPPM(nhietDo, doAm);
     Serial.print(nhietDo);
     Serial.print(",");
     Serial.print(doAm);
     Serial.print(",");
-    Serial.print(khongKhi);
-    Serial.print(",");
-    Serial.println(doAmDat);
+    Serial.println(khongKhi);
     lcd.clear();
     lcd.setCursor(0,0);
     lcd.print("NHIET DO:");
