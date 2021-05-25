@@ -156,35 +156,45 @@ void loop()
 ```
 ### Timer nhận dữ liệu và vẽ đồ thị
 ```
-  private void TimerNhanDuLieu_Tick(object sender, EventArgs e){
-      if (!serialPort.IsOpen){
-          trangThaiKetNoi.Text = "Chưa kết nối";
-      }
-      else if (serialPort.IsOpen){
-          trangThaiKetNoi.Text = "Đã kết nối";
-          string duLieuNhan = serialPort.ReadLine().ToString();
-          string[] arrListStr = duLieuNhan.Split(',');
-          string NhietDo = arrListStr[0];
-          string DoAm = arrListStr[1];
-          string KhongKhi = arrListStr[2];
-          string DoAmDat = arrListStr[3].Substring(0, arrListStr[3].Length - 1);
-          nhietDo.Text = NhietDo;
-          doAm.Text = DoAm;
-          khongKhi.Text = KhongKhi;
-          doAmDat.Text = DoAmDat;
-          SeriesCollection[0].Values.Add(Convert.ToDouble(NhietDo));
-          SeriesCollection[1].Values.Add(Convert.ToDouble(DoAm));
-          SeriesCollection[2].Values.Add(Convert.ToDouble(KhongKhi));
-          SeriesCollection[3].Values.Add(Convert.ToDouble(DoAmDat));
-          dataGrid.Items.Add(new Data(){
-              cNgay = DateTime.Now.ToShortDateString(),
-              cNhietDo = Convert.ToDouble(NhietDo),
-              cDoAm = Convert.ToDouble(DoAm),
-              cThoiGian = DateTime.Now.ToShortTimeString(),
-              cKhongKhi = Convert.ToDouble(KhongKhi),
-              cDoAmDat = Convert.ToDouble(DoAmDat)});
-      }
-  }
+        private void TimerNhanDuLieu_Tick(object sender, EventArgs e)
+        {
+            if (!serialPort.IsOpen)
+            {
+                trangThaiKetNoi.Kind = MaterialDesignThemes.Wpf.PackIconKind.LinkVariantOff;
+            }
+            else if (serialPort.IsOpen)
+            {
+                trangThaiKetNoi.Kind = MaterialDesignThemes.Wpf.PackIconKind.LinkVariant;
+                string duLieuNhan = serialPort.ReadLine().ToString();
+                string[] arrListStr = duLieuNhan.Split(',');
+                string NhietDo = arrListStr[0];
+                string DoAm = arrListStr[1];
+                string KhongKhi = arrListStr[2];
+                nhietDo.Text = NhietDo;
+                doAm.Text = DoAm;
+                khongKhi.Text = KhongKhi;
+                SeriesCollection[0].Values.Add(Convert.ToDouble(NhietDo));
+                SeriesCollection[1].Values.Add(Convert.ToDouble(DoAm));
+                SeriesCollection[2].Values.Add(Convert.ToDouble(KhongKhi));
+                dataGrid.Items.Add(new Data()
+                {
+                    cNgay = DateTime.Now.ToShortDateString(),
+                    cNhietDo = Convert.ToDouble(NhietDo),
+                    cDoAm = Convert.ToDouble(DoAm),
+                    cThoiGian = DateTime.Now.ToShortTimeString(),
+                    cKhongKhi = Convert.ToDouble(KhongKhi)
+                });
+            }
+            if (dataGrid.Items.Count > 0)
+            {
+                var border = VisualTreeHelper.GetChild(dataGrid, 0) as Decorator;
+                if (border != null)
+                {
+                    var scroll = border.Child as ScrollViewer;
+                    if (scroll != null) scroll.ScrollToEnd();
+                }
+            }
+        }
 ```
 
 ## Giải pháp ghi dữ liệu vào Excel
